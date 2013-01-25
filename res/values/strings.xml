@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Open Wifi Network Remover</string>
+    <string name="hello_world">Preferences coming soon!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="preference_key">com.dje.openwifinetworkremover.preference_key</string>
+
+</resources>
