@@ -26,8 +26,6 @@
 package com.dje.openwifinetworkremover;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -55,21 +53,31 @@ public class MainInterface extends Activity {
 	}
 
 	public void setupUI() {
-		int enabled = settings.retrieve("enabled");
-		if (enabled == 1)
+		if (settings.get("enabled") == 1)
 			enabledCheckBox.setChecked(true);
 		else
 			enabledCheckBox.setChecked(false);
+		
+		if (settings.get("notifications") == 1)
+			notificationCheckBox.setChecked(true);
+		else
+			notificationCheckBox.setChecked(false);
 	}
 	
-	public void enabledCheckBoxClick(View view) {
+	public void checkBoxClick(View view) {
 		boolean checked = ((CheckBox) view).isChecked();
 		
-		if (checked) {
-			settings.store("enabled", 1);
+		if (view.getId() == R.id.enabled_checkbox) {
+			if (checked)
+				settings.set("enabled", 1);
+			else
+				settings.set("enabled", 0);
 		}
-		else {
-			settings.store("enabled", 0);
+		if (view.getId() == R.id.notification_checkbox) {
+			if (checked)
+				settings.set("notifications", 1);
+			else
+				settings.set("notifications", 0);
 		}
 	}
 	

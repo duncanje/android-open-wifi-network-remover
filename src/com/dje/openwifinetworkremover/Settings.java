@@ -37,14 +37,14 @@ public class Settings {
 	}
 	
 	// Store a given value for a key
-	public void store(String key, int value) {
+	public void set(String key, int value) {
 		SharedPreferences.Editor settingsEditor = settings.edit();
 		settingsEditor.putInt(key, value);
 		settingsEditor.commit();
 	}
 	
 	// Retrieve a value for a given key, return -1 in case of an error
-	public int retrieve(String key) {
+	public int get(String key) {
 		return settings.getInt(key, -1);
 	}
 }

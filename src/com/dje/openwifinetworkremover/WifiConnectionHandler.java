@@ -47,28 +47,28 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		settings = new Settings(context);
-		if (settings.retrieve("enabled") == 1) {
+		if (settings.get("enabled") == 1) {
 			wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
 			
 			lock.acquire();
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
-			int currentStoredOpenNetworkId = settings.retrieve("currentOpenNetworkId");
+			int currentStoredOpenNetworkId = settings.get("currentOpenNetworkId");
 			
 			Log.d(this.toString(),status.toString());
 			
 			// Add the network id to settings if connection complete and network is open
 			if (status.equals(SupplicantState.COMPLETED) && detectUnsecuredNetwork()) {
-				displayToast(context,"Open network (will be forgotten)");
-				settings.store("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
+				displayToastNotification(context,"Open network (will be forgotten)");
+				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
 			// Forgot network and remove id from settings on disconnection if we are connected to an open network
 			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != -1) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				boolean out = wifiManager.saveConfiguration();
 				Log.d(this.toString(),out+"");
-				settings.store("currentOpenNetworkId", -1); // Reset stored network id
-				displayToast(context, "Open network forgotten");
+				settings.set("currentOpenNetworkId", -1); // Reset stored network id
+				displayToastNotification(context, "Open network forgotten");
 			}
 			
 			lock.release();
@@ -88,9 +88,11 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	}
 
 	// Display toast notification
-	private void displayToast(Context context, String message) {
-		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-		toast.show();
+	private void displayToastNotification(Context context, String message) {
+		if (settings.get("notifications") == 1) {
+			Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+			toast.show();
+		}
 	}
 	
 }
