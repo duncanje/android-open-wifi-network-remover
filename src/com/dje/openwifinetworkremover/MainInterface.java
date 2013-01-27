@@ -26,21 +26,57 @@
 package com.dje.openwifinetworkremover;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.CheckBox;
 
 public class MainInterface extends Activity {
+	
+	private Settings settings;
+	
+	// Interface components
+	private CheckBox enabledCheckBox;
+	private CheckBox notificationCheckBox;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.main_interface);
+		
+		settings = new Settings(this);
+		
+		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
+		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
+		
+		setupUI();
 	}
 
+	public void setupUI() {
+		int enabled = settings.retrieve("enabled");
+		if (enabled == 1)
+			enabledCheckBox.setChecked(true);
+		else
+			enabledCheckBox.setChecked(false);
+	}
+	
+	public void enabledCheckBoxClick(View view) {
+		boolean checked = ((CheckBox) view).isChecked();
+		
+		if (checked) {
+			settings.store("enabled", 1);
+		}
+		else {
+			settings.store("enabled", 0);
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getMenuInflater().inflate(R.menu.main_interface, menu);
 		return true;
 	}
 
