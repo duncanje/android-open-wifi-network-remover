@@ -25,15 +25,19 @@
 
 package com.dje.openwifinetworkremover;
 
-import android.app.Activity;
+import java.util.ArrayList;
+
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
-public class MainInterface extends Activity {
+public class MainInterface extends ListActivity {
 	
 	private Settings settings;
+	private ArrayList<String> whitelistedSSIDS;
 	
 	// Interface components
 	private CheckBox enabledCheckBox;
@@ -45,9 +49,14 @@ public class MainInterface extends Activity {
 		setContentView(R.layout.main_interface);
 		
 		settings = new Settings(this);
+		whitelistedSSIDS = new ArrayList<String>();
+		
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, whitelistedSSIDS));
 		
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
+		
+		whitelistedSSIDS.add("To do");
 		
 		setupUI();
 	}

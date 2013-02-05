@@ -62,6 +62,9 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				displayToastNotification(context,"Open network (will be forgotten)");
 				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
+			else if (status.equals(SupplicantState.COMPLETED)) {
+				settings.set("currentOpenNetworkId", -1); // Reset stored network id
+			}
 			// Forgot network and remove id from settings on disconnection if we are connected to an open network
 			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != -1) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
