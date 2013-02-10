@@ -26,7 +26,6 @@
 package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -52,6 +51,7 @@ public class MainInterface extends ListActivity {
 	// Interface components
 	private CheckBox enabledCheckBox;
 	private CheckBox notificationCheckBox;
+	private ListView whitelist;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class MainInterface extends ListActivity {
 		
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
+		whitelist = (ListView) findViewById(android.R.id.list);
 		
 		updateUI();
 	}
@@ -82,19 +83,16 @@ public class MainInterface extends ListActivity {
 		else
 			notificationCheckBox.setChecked(false);
 		
+		for (int i = 0; i < whitelist.getCount(); i++)
+			whitelist.setItemChecked(i, false);
 		whitelistedSSIDS.clear();
-		ArrayList<String> retrievedWhitelist = new ArrayList<String>();
-		retrievedWhitelist = settings.getList("whitelist");
-		Iterator<String> whitelistIterator = retrievedWhitelist.iterator();
-		while (whitelistIterator.hasNext())
-			whitelistedSSIDS.add(whitelistIterator.next());
+		whitelistedSSIDS.addAll(settings.getList("whitelist"));
+		whitelistAdapter.notifyDataSetChanged();
 		
 		if (whitelistedSSIDS.size() <= 0)
 			findViewById(R.id.whitelistRemoveButton).setVisibility(View.INVISIBLE);
 		else
 			findViewById(R.id.whitelistRemoveButton).setVisibility(View.VISIBLE);
-		
-		whitelistAdapter.notifyDataSetChanged();
 	}
 	
 	public void checkBoxClick(View view) {
@@ -148,7 +146,7 @@ public class MainInterface extends ListActivity {
 	}
 	
 	public void whitelistRemoveHandler(View view) {
-		SparseBooleanArray checkedIds = ((ListView) findViewById(android.R.id.list)).getCheckedItemPositions();
+		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
 		if (checkedIds.size() == 0) {
 			uiGoodies.displayToastNotification("No network SSID(s) selected!");
 		}
@@ -156,7 +154,6 @@ public class MainInterface extends ListActivity {
 			int removedCount = 0;
 			for (int i = 0; i < checkedIds.size(); i++) {
 				if (checkedIds.get(i) == true) {
-					((ListView) findViewById(android.R.id.list)).setItemChecked(i, false);
 					whitelistedSSIDS.remove(i-removedCount);
 					removedCount++;
 				}
