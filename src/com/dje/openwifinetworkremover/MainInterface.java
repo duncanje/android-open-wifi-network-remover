@@ -19,10 +19,6 @@
  * MA 02110-1301, USA.
  */
 
-/*
- * This will be the future preferences interface, it currently doesn't do much!
- */
-
 package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
@@ -72,29 +68,35 @@ public class MainInterface extends ListActivity {
 		updateUI();
 	}
 
+	// Performs updates to the UI after major events
 	public void updateUI() {
+		// Set enabled checkbox
 		if (settings.get("enabled") == 1)
 			enabledCheckBox.setChecked(true);
 		else
 			enabledCheckBox.setChecked(false);
 		
+		// Set notifications checkbox
 		if (settings.get("notifications") == 1)
 			notificationCheckBox.setChecked(true);
 		else
 			notificationCheckBox.setChecked(false);
 		
+		// Clear list and re-load it from stored whitelist
 		for (int i = 0; i < whitelist.getCount(); i++)
 			whitelist.setItemChecked(i, false);
 		whitelistedSSIDS.clear();
 		whitelistedSSIDS.addAll(settings.getList("whitelist"));
 		whitelistAdapter.notifyDataSetChanged();
 		
+		// Show/hide SSID remove button according to whitelist length
 		if (whitelistedSSIDS.size() <= 0)
 			findViewById(R.id.whitelistRemoveButton).setVisibility(View.INVISIBLE);
 		else
 			findViewById(R.id.whitelistRemoveButton).setVisibility(View.VISIBLE);
 	}
 	
+	// Handle a click on a checkbox
 	public void checkBoxClick(View view) {
 		boolean checked = ((CheckBox) view).isChecked();
 		
@@ -112,14 +114,15 @@ public class MainInterface extends ListActivity {
 		}
 	}
 
-	public void whitelistAddHandler(View view) {		
+	// Pops up a dialog box prompting for an SSID and adds it to the whitelist
+	public void whitelistAddHandler(View view) {	
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
 		builder.setTitle("Enter SSID");
-		
 		final EditText edit = new EditText(this);
 		builder.setView(edit);
 			
+		// Handle click on the Ok button
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				String ssidInput = edit.getText().toString();
@@ -136,6 +139,7 @@ public class MainInterface extends ListActivity {
 			}
 		});
 		
+		// Handle click on the Cancel button
 		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {}
 		});
@@ -145,6 +149,7 @@ public class MainInterface extends ListActivity {
 		dialog.show();
 	}
 	
+	// Removes the selected SSID(s) from the whitelist
 	public void whitelistRemoveHandler(View view) {
 		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
 		if (checkedIds.size() == 0) {
@@ -154,7 +159,7 @@ public class MainInterface extends ListActivity {
 			int removedCount = 0;
 			for (int i = 0; i < checkedIds.size(); i++) {
 				if (checkedIds.get(i) == true) {
-					whitelistedSSIDS.remove(i-removedCount);
+					whitelistedSSIDS.remove(i-removedCount); // Fix shifted indexes
 					removedCount++;
 				}
 			}
