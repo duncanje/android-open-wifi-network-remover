@@ -90,11 +90,11 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 		List<ScanResult> scan = wifiManager.getScanResults();
 		ArrayList<String> whitelist = settings.getList("whitelist");
 		for (ScanResult network : scan) {
-			if (! network.capabilities.contains("WPA")
-					&& ! network.capabilities.contains("WEP")
-					&& ! network.capabilities.contains("EAP")
+			if (wifiManager.getConnectionInfo().getSSID().equals("\""+network.SSID+"\"") // Ensure we only detect the network we are connected to
 					&& ! whitelist.contains(network.SSID)
-					&& wifiManager.getConnectionInfo().getSSID().equals("\""+network.SSID+"\"")) // Ensure we only detect the network we are connected to
+					&& ! network.capabilities.contains("WPA")
+					&& ! network.capabilities.contains("WEP")
+					&& ! network.capabilities.contains("EAP"))
 				return true;
 		}
 		return false;
