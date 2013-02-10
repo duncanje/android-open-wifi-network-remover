@@ -40,9 +40,11 @@ import android.widget.ListView;
 
 public class MainInterface extends ListActivity {
 	
-	private Settings settings;
 	private ArrayList<String> whitelistedSSIDS;
 	private ArrayAdapter<String> whitelistAdapter;
+	
+	private Settings settings;
+	private UiGoodies uiGoodies;
 	
 	// Interface components
 	private CheckBox enabledCheckBox;
@@ -54,6 +56,7 @@ public class MainInterface extends ListActivity {
 		setContentView(R.layout.main_interface);
 		
 		settings = new Settings(this);
+		uiGoodies = new UiGoodies(this);
 		whitelistedSSIDS = new ArrayList<String>();
 		
 		whitelistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, whitelistedSSIDS);
@@ -113,7 +116,6 @@ public class MainInterface extends ListActivity {
 		whitelistedSSIDS.add(Integer.toString(rand.nextInt()));
 		settings.set("whitelist", whitelistedSSIDS);
 		updateUI();
-	
 	}
 	
 	public void whitelistRemoveHandler(View view) {

@@ -36,12 +36,13 @@ import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.util.Log;
-import android.widget.Toast;
 
 public class WifiConnectionHandler extends BroadcastReceiver {
 
-	private WifiManager wifiManager;
 	private Settings settings;
+	private UiGoodies uiGoodies;
+	
+	private WifiManager wifiManager;
 	private SupplicantState status;
 	private WifiLock lock;
 	
@@ -51,8 +52,10 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 		if (settings.get("enabled") == 1) {
 			wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
-			
 			lock.acquire();
+			
+			uiGoodies = new UiGoodies(context);
+			
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
 			int currentStoredOpenNetworkId = settings.get("currentOpenNetworkId");
 			
@@ -60,7 +63,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			// Add the network id to settings if connection complete and network is open
 			if (status.equals(SupplicantState.COMPLETED) && detectAppropriateNetwork()) {
-				displayToastNotification(context,"Open network (will be forgotten)");
+				uiGoodies.displayToastNotification("Open network (will be forgotten)", settings.get("notifications"));
 				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
 			
@@ -75,7 +78,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				boolean out = wifiManager.saveConfiguration();
 				Log.d(this.toString(),out+"");
 				settings.set("currentOpenNetworkId", -1); // Reset stored network id
-				displayToastNotification(context, "Open network forgotten");
+				uiGoodies.displayToastNotification("Open network forgotten", settings.get("notifications"));
 			}
 			
 			lock.release();
@@ -95,14 +98,6 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				return true;
 		}
 		return false;
-	}
-
-	// Display toast notification
-	private void displayToastNotification(Context context, String message) {
-		if (settings.get("notifications") == 1) {
-			Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-			toast.show();
-		}
 	}
 	
 }
