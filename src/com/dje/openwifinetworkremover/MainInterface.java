@@ -26,18 +26,23 @@
 package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ListView;
 
 public class MainInterface extends ListActivity {
 	
 	private Settings settings;
 	private ArrayList<String> whitelistedSSIDS;
+	private ArrayAdapter<String> whitelistAdapter;
 	
 	// Interface components
 	private CheckBox enabledCheckBox;
@@ -51,17 +56,16 @@ public class MainInterface extends ListActivity {
 		settings = new Settings(this);
 		whitelistedSSIDS = new ArrayList<String>();
 		
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, whitelistedSSIDS));
+		whitelistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, whitelistedSSIDS);
+		setListAdapter(whitelistAdapter);
 		
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
 		
-		whitelistedSSIDS.add("To do");
-		
-		setupUI();
+		updateUI();
 	}
 
-	public void setupUI() {
+	public void updateUI() {
 		if (settings.get("enabled") == 1)
 			enabledCheckBox.setChecked(true);
 		else
@@ -71,6 +75,20 @@ public class MainInterface extends ListActivity {
 			notificationCheckBox.setChecked(true);
 		else
 			notificationCheckBox.setChecked(false);
+		
+		whitelistedSSIDS.clear();
+		ArrayList<String> retrievedWhitelist = new ArrayList<String>();
+		retrievedWhitelist = settings.getList("whitelist");
+		Iterator<String> whitelistIterator = retrievedWhitelist.iterator();
+		while (whitelistIterator.hasNext())
+			whitelistedSSIDS.add(whitelistIterator.next());
+		
+		if (whitelistedSSIDS.size() <= 0)
+			findViewById(R.id.whitelistRemoveButton).setVisibility(View.INVISIBLE);
+		else
+			findViewById(R.id.whitelistRemoveButton).setVisibility(View.VISIBLE);
+		
+		whitelistAdapter.notifyDataSetChanged();
 	}
 	
 	public void checkBoxClick(View view) {
@@ -89,11 +107,33 @@ public class MainInterface extends ListActivity {
 				settings.set("notifications", 0);
 		}
 	}
+
+	public void whitelistAddHandler(View view) {		
+		Random rand = new Random();
+		whitelistedSSIDS.add(Integer.toString(rand.nextInt()));
+		settings.set("whitelist", whitelistedSSIDS);
+		updateUI();
+	
+	}
+	
+	public void whitelistRemoveHandler(View view) {
+		SparseBooleanArray checkedIds = ((ListView) findViewById(android.R.id.list)).getCheckedItemPositions();
+		int removedCount = 0;
+		for (int i = 0; i < checkedIds.size(); i++) {
+			if (checkedIds.get(i) == true) {
+				((ListView) findViewById(android.R.id.list)).setItemChecked(i, false);
+				whitelistedSSIDS.remove(i-removedCount);
+				removedCount++;
+			}
+		}
+		settings.set("whitelist", whitelistedSSIDS);
+		updateUI();
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_interface, menu);
+		//getMenuInflater().inflate(R.menu.main_interface, menu);
 		return true;
 	}
 

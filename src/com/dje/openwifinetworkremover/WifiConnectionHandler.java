@@ -25,6 +25,7 @@
 
 package com.dje.openwifinetworkremover;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.BroadcastReceiver;
@@ -58,13 +59,16 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			Log.d(this.toString(),status.toString());
 			
 			// Add the network id to settings if connection complete and network is open
-			if (status.equals(SupplicantState.COMPLETED) && detectUnsecuredNetwork()) {
+			if (status.equals(SupplicantState.COMPLETED) && detectAppropriateNetwork()) {
 				displayToastNotification(context,"Open network (will be forgotten)");
 				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
+			
+			// If connecting to any other network reset the stored network id in case it wasn't unset on disconnect
 			else if (status.equals(SupplicantState.COMPLETED)) {
 				settings.set("currentOpenNetworkId", -1); // Reset stored network id
 			}
+			
 			// Forgot network and remove id from settings on disconnection if we are connected to an open network
 			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != -1) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
@@ -79,11 +83,14 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	}
 	
 	// Determines the security capabilities of a network
-	private boolean detectUnsecuredNetwork() {
+	private boolean detectAppropriateNetwork() {
 		List<ScanResult> scan = wifiManager.getScanResults();
+		ArrayList<String> whitelist = settings.getList("whitelist");
 		for (ScanResult network : scan) {
 			if (! network.capabilities.contains("WPA")
 					&& ! network.capabilities.contains("WEP")
+					&& ! network.capabilities.contains("EAP")
+					&& ! whitelist.contains(network.SSID)
 					&& wifiManager.getConnectionInfo().getSSID().equals("\""+network.SSID+"\"")) // Ensure we only detect the network we are connected to
 				return true;
 		}
