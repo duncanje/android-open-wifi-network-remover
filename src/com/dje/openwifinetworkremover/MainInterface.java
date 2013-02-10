@@ -149,16 +149,21 @@ public class MainInterface extends ListActivity {
 	
 	public void whitelistRemoveHandler(View view) {
 		SparseBooleanArray checkedIds = ((ListView) findViewById(android.R.id.list)).getCheckedItemPositions();
-		int removedCount = 0;
-		for (int i = 0; i < checkedIds.size(); i++) {
-			if (checkedIds.get(i) == true) {
-				((ListView) findViewById(android.R.id.list)).setItemChecked(i, false);
-				whitelistedSSIDS.remove(i-removedCount);
-				removedCount++;
-			}
+		if (checkedIds.size() == 0) {
+			uiGoodies.displayToastNotification("No network SSID(s) selected!");
 		}
-		settings.set("whitelist", whitelistedSSIDS);
-		updateUI();
+		else {
+			int removedCount = 0;
+			for (int i = 0; i < checkedIds.size(); i++) {
+				if (checkedIds.get(i) == true) {
+					((ListView) findViewById(android.R.id.list)).setItemChecked(i, false);
+					whitelistedSSIDS.remove(i-removedCount);
+					removedCount++;
+				}
+			}
+			settings.set("whitelist", whitelistedSSIDS);
+			updateUI();
+		}
 	}
 	
 	@Override
