@@ -27,15 +27,18 @@ package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class MainInterface extends ListActivity {
@@ -112,10 +115,36 @@ public class MainInterface extends ListActivity {
 	}
 
 	public void whitelistAddHandler(View view) {		
-		Random rand = new Random();
-		whitelistedSSIDS.add(Integer.toString(rand.nextInt()));
-		settings.set("whitelist", whitelistedSSIDS);
-		updateUI();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle("Enter SSID");
+		
+		final EditText edit = new EditText(this);
+		builder.setView(edit);
+			
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				String ssidInput = edit.getText().toString();
+				if (! ssidInput.isEmpty()) {
+					if (whitelistedSSIDS.contains(ssidInput)) {
+						uiGoodies.displayToastNotification("Network SSID already in whitelist!");
+					}
+					else {
+						whitelistedSSIDS.add(edit.getText().toString());
+						settings.set("whitelist", whitelistedSSIDS);
+						updateUI();
+					}
+				}
+			}
+		});
+		
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {}
+		});
+
+		AlertDialog dialog = builder.create();
+		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		dialog.show();
 	}
 	
 	public void whitelistRemoveHandler(View view) {
