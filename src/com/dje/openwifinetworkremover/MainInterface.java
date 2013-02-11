@@ -65,6 +65,11 @@ public class MainInterface extends ListActivity {
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
 		whitelist = (ListView) findViewById(android.R.id.list);
 		
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+			findViewById(R.id.whitelist_header_layout).setVisibility(View.INVISIBLE);
+			findViewById(android.R.id.list).setVisibility(View.INVISIBLE);
+		}
+		
 		updateUI();
 	}
 
@@ -82,18 +87,20 @@ public class MainInterface extends ListActivity {
 		else
 			notificationCheckBox.setChecked(false);
 		
-		// Clear list and re-load it from stored whitelist
-		for (int i = 0; i < whitelist.getCount(); i++)
-			whitelist.setItemChecked(i, false);
-		whitelistedSSIDS.clear();
-		whitelistedSSIDS.addAll(settings.getList("whitelist"));
-		whitelistAdapter.notifyDataSetChanged();
-		
-		// Show/hide SSID remove button according to whitelist length
-		if (whitelistedSSIDS.size() <= 0)
-			findViewById(R.id.whitelistRemoveButton).setVisibility(View.INVISIBLE);
-		else
-			findViewById(R.id.whitelistRemoveButton).setVisibility(View.VISIBLE);
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+			// Clear list and re-load it from stored whitelist
+			for (int i = 0; i < whitelist.getCount(); i++)
+				whitelist.setItemChecked(i, false);
+			whitelistedSSIDS.clear();
+			whitelistedSSIDS.addAll(settings.getList("whitelist"));
+			whitelistAdapter.notifyDataSetChanged();
+			
+			// Show/hide SSID remove button according to whitelist length
+			if (whitelistedSSIDS.size() <= 0)
+				findViewById(R.id.whitelistRemoveButton).setVisibility(View.INVISIBLE);
+			else
+				findViewById(R.id.whitelistRemoveButton).setVisibility(View.VISIBLE);
+		}
 	}
 	
 	// Handle a click on a checkbox
@@ -127,7 +134,7 @@ public class MainInterface extends ListActivity {
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				String ssidInput = edit.getText().toString();
-				if (! ssidInput.isEmpty()) {
+				if (ssidInput.length() == 0) {
 					if (whitelistedSSIDS.contains(ssidInput)) {
 						uiGoodies.displayToastNotification(alreadyInWhitelistMessage);
 					}
