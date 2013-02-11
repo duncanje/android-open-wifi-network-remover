@@ -38,7 +38,7 @@ public class Settings {
 	private SharedPreferences.Editor settingsEditor;
 	
 	public Settings(Context context) {
-		this.settings = context.getSharedPreferences(context.getString(R.string.preference_key), Context.MODE_PRIVATE);
+		this.settings = context.getSharedPreferences(context.getString(R.string.settings_key), Context.MODE_PRIVATE);
 		settingsEditor = settings.edit();
 	}
 	

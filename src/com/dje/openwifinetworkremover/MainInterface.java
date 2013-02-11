@@ -121,6 +121,7 @@ public class MainInterface extends ListActivity {
 		builder.setTitle("Enter SSID");
 		final EditText edit = new EditText(this);
 		builder.setView(edit);
+		final String alreadyInWhitelistMessage = this.getString(R.string.ssid_already_in_whitelist);
 			
 		// Handle click on the Ok button
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -128,7 +129,7 @@ public class MainInterface extends ListActivity {
 				String ssidInput = edit.getText().toString();
 				if (! ssidInput.isEmpty()) {
 					if (whitelistedSSIDS.contains(ssidInput)) {
-						uiGoodies.displayToastNotification("Network SSID already in whitelist!");
+						uiGoodies.displayToastNotification(alreadyInWhitelistMessage);
 					}
 					else {
 						whitelistedSSIDS.add(edit.getText().toString());
@@ -153,7 +154,7 @@ public class MainInterface extends ListActivity {
 	public void whitelistRemoveHandler(View view) {
 		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
 		if (checkedIds.size() == 0) {
-			uiGoodies.displayToastNotification("No network SSID(s) selected!");
+			uiGoodies.displayToastNotification(this.getString(R.string.no_ssid_selected));
 		}
 		else {
 			int removedCount = 0;

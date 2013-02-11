@@ -3,18 +3,20 @@
     package="com.dje.openwifinetworkremover"
     android:versionCode="1"
     android:versionName="0.1" >
-
+    
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="17" />
     
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/><uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     
 
     <application
         android:allowBackup="true"
+        android:backupAgent="SettingsBackupAgent"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -33,6 +35,9 @@
 		    <action android:name="android.net.wifi.supplicant.STATE_CHANGE" />
 		</intent-filter>		
     </receiver>
+    
+	<meta-data android:name="com.google.android.backup.api_key"
+    	android:value="AEdPqrEAAAAIfKOK0EwgpZpIxR_KwSc7E4IFjq87h1n0IboVNA" />
     </application>
 
 </manifest>
