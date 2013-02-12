@@ -134,7 +134,7 @@ public class MainInterface extends ListActivity {
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				String ssidInput = edit.getText().toString();
-				if (ssidInput.length() == 0) {
+				if (ssidInput.length() > 0) {
 					if (whitelistedSSIDS.contains(ssidInput)) {
 						uiGoodies.displayToastNotification(alreadyInWhitelistMessage);
 					}
