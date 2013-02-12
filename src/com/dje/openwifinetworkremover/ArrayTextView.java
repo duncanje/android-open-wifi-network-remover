@@ -22,24 +22,28 @@
 package com.dje.openwifinetworkremover;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.util.AttributeSet;
+import android.widget.TextView;
 
-public class UiGoodies {
-	
-	private Context context;
-	
-	public UiGoodies(Context context) {
-		this.context = context;
+public class ArrayTextView extends TextView {
+
+	public ArrayTextView(Context context) {
+		super(context);
 	}
 	
-	public void displayToastNotification(String message, int enabled) {
-		if (enabled == 1)
-			displayToastNotification(message);
+	public ArrayTextView(Context context, AttributeSet attrs) {
+		super(context, attrs);
 	}
-	
-	public void displayToastNotification(String message) {
-		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-		toast.show();
+
+	public ArrayTextView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
 	}
-	
+
+	public void setText(String[] input) {
+		String out = "";
+		for (String child : input)
+			out = child+"\n";
+		this.setText(out);
+	}
+
 }

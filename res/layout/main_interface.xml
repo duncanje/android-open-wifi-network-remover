@@ -1,77 +1,63 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <CheckBox
+        android:id="@+id/enabled_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical"
-        tools:ignore="UselessParent" >
+        android:onClick="checkBoxClick"
+        android:text="@string/enabled_checkbox_label"
+        android:textSize="20sp" />
 
-        <CheckBox
-            android:id="@+id/enabled_checkbox"
+    <CheckBox
+        android:id="@+id/notification_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="checkBoxClick"
+        android:text="@string/notification_checkbox_label"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/whitelist_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <TextView
+            android:id="@+id/whitelist_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="checkBoxClick"
-            android:text="@string/enabled_checkbox_label"
-            android:textSize="20sp" />
+            android:paddingTop="15dp"
+            android:text="@string/whitelist_heading"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <CheckBox
-            android:id="@+id/notification_checkbox"
+        <Button
+            android:id="@+id/whitelistAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="checkBoxClick"
-            android:text="@string/notification_checkbox_label"
-            android:textSize="20sp" />
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|center_horizontal|fill_horizontal"
+            android:onClick="whitelistAddHandler"
+            android:text="@string/whitelist_add_button_label" />
 
-        <LinearLayout
-            android:id="@+id/whitelist_header_layout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" >
-
-            <TextView
-                android:id="@+id/whitelist_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:text="@string/whitelist_heading"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:id="@+id/whitelistAddButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_vertical|center_horizontal|fill_horizontal"
-                android:onClick="whitelistAddHandler"
-                android:text="@string/whitelist_add_button_label" />
-
-            <Button
-                android:id="@+id/whitelistRemoveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal|fill_horizontal"
-                android:onClick="whitelistRemoveHandler"
-                android:text="@string/whitelist_remove_button_label" />
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="multipleChoice" >
-
-        </ListView>
-
+        <Button
+            android:id="@+id/whitelistRemoveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal|fill_horizontal"
+            android:onClick="whitelistRemoveHandler"
+            android:text="@string/whitelist_remove_button_label" />
     </LinearLayout>
 
-</RelativeLayout>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="multipleChoice" >
+    </ListView>
+
+</LinearLayout>

@@ -2,19 +2,23 @@
 <resources>
 
     <string name="app_name">Open Wifi Network Remover</string>
-    
+    <string name="version">0.1</string>
     <string name="menu_about">About</string>
-    
     <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
     <string name="settings_backup_key">settings</string>
-
-	<string name="enabled_checkbox_label">Enabled</string>
-	<string name="notification_checkbox_label">Notify on connect/disconnect</string>
-	
-	<string name="whitelist_heading">Whitelist</string>
-	<string name="whitelist_add_button_label">Add</string>
-	<string name="whitelist_remove_button_label">Remove</string>
-	<string name="no_ssid_selected">No network SSID(s) selected!</string>
-	<string name="ssid_already_in_whitelist">Network SSID already in whitelist!</string>
+    <string name="enabled_checkbox_label">Enabled</string>
+    <string name="notification_checkbox_label">Notify on connect/disconnect</string>
+    <string name="whitelist_heading">Whitelist</string>
+    <string name="whitelist_add_button_label">Add</string>
+    <string name="whitelist_remove_button_label">Remove</string>
+    <string name="no_ssid_selected">No network SSID(s) selected!</string>
+    <string name="ssid_already_in_whitelist">Network SSID already in whitelist!</string>
+    <string name="title_activity_about_interface">About</string><string name="version_header_label">Version</string>
+    
+    <string name="developer_header_label">Developers</string>
+    <string name="about_blurb_label">Forgets open WiFi networks after disconnecting\n\nLicensed under the GNU GPL\nhttp://gnu.org/licenses/gpl\n\nhttps://github.com/duncanje/android-open-wifi-network-remover</string>
+    <string-array name="developers">
+        <item>Duncan Eastoe</item>
+    </string-array>
 
 </resources>

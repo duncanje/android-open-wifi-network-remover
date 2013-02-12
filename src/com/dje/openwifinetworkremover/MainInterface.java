@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -127,6 +129,7 @@ public class MainInterface extends ListActivity {
 		
 		builder.setTitle("Enter SSID");
 		final EditText edit = new EditText(this);
+		edit.setSingleLine(true);
 		builder.setView(edit);
 		final String alreadyInWhitelistMessage = this.getString(R.string.ssid_already_in_whitelist);
 			
@@ -134,7 +137,7 @@ public class MainInterface extends ListActivity {
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				String ssidInput = edit.getText().toString();
-				if (ssidInput.length() == 0) {
+				if (ssidInput.length() > 0) {
 					if (whitelistedSSIDS.contains(ssidInput)) {
 						uiGoodies.displayToastNotification(alreadyInWhitelistMessage);
 					}
@@ -179,8 +182,15 @@ public class MainInterface extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main_interface, menu);
+		getMenuInflater().inflate(R.menu.main_interface, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    Intent launchAbout = new Intent(this, AboutInterface.class);
+	    startActivity(launchAbout);
+	    return super.onOptionsItemSelected(item);
 	}
 
 }
