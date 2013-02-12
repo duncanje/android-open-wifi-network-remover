@@ -2,21 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dje.openwifinetworkremover"
     android:versionCode="1"
-    android:versionName="0.1" >
-    
+    android:versionName="@string/version" >
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
 
     <application
         android:allowBackup="true"
-        android:backupAgent="SettingsBackupAgent"
+        android:backupAgent="com.dje.openwifinetworkremover.SettingsBackupAgent"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -29,15 +28,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    
-	<receiver android:name="WifiConnectionHandler">
-		<intent-filter>
-		    <action android:name="android.net.wifi.supplicant.STATE_CHANGE" />
-		</intent-filter>		
-    </receiver>
-    
-	<meta-data android:name="com.google.android.backup.api_key"
-    	android:value="AEdPqrEAAAAIfKOK0EwgpZpIxR_KwSc7E4IFjq87h1n0IboVNA" />
+
+        <receiver android:name="com.dje.openwifinetworkremover.WifiConnectionHandler" >
+            <intent-filter>
+                <action android:name="android.net.wifi.supplicant.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIfKOK0EwgpZpIxR_KwSc7E4IFjq87h1n0IboVNA" />
+
+        <activity
+            android:name="com.dje.openwifinetworkremover.AboutInterface"
+            android:label="@string/title_activity_about_interface"
+            android:parentActivityName="MainInterface" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainInterface" />
+        </activity>
     </application>
 
 </manifest>
