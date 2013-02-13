@@ -39,10 +39,14 @@ public class ArrayTextView extends TextView {
 		super(context, attrs, defStyle);
 	}
 
-	public void setText(String[] input) {
+	public final void setText(String[] input) {
+		setText(input, "\n");
+	}
+	
+	public final void setText(String[] input, String separator) {
 		String out = "";
 		for (String child : input)
-			out = child+"\n";
+			out = child+separator;
 		this.setText(out);
 	}
 
