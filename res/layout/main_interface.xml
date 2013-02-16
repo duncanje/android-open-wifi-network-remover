@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkBoxClick"
+        android:padding="10dp"
         android:text="@string/enabled_checkbox_label"
         android:textSize="20sp" />
 
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkBoxClick"
+        android:padding="10dp"
         android:text="@string/notification_checkbox_label"
         android:textSize="20sp" />
 
@@ -31,6 +33,7 @@
             android:id="@+id/whitelist_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:paddingTop="15dp"
             android:text="@string/whitelist_heading"
             android:textAppearance="?android:attr/textAppearanceLarge" />
