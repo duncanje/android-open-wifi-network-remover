@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -50,7 +51,9 @@ public class MainInterface extends ListActivity {
 	private CheckBox enabledCheckBox;
 	private View settingsLayout;
 	private CheckBox notificationCheckBox;
+	private View whitelistLayout;
 	private ListView whitelist;
+	private Button whitelistRemoveButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +70,12 @@ public class MainInterface extends ListActivity {
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		settingsLayout = (View) findViewById(R.id.settings_layout);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
+		whitelistLayout = (View) findViewById(R.id.whitelist_layout);
 		whitelist = (ListView) findViewById(android.R.id.list);
+		whitelistRemoveButton = (Button) findViewById(R.id.whitelistRemoveButton);
 		
-		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-			findViewById(R.id.whitelist_header_layout).setVisibility(View.INVISIBLE);
-			findViewById(android.R.id.list).setVisibility(View.INVISIBLE);
-		}
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB)
+			whitelistLayout.setVisibility(View.INVISIBLE);
 		
 		updateUI();
 	}
@@ -105,9 +108,9 @@ public class MainInterface extends ListActivity {
 			
 			// Show/hide SSID remove button according to whitelist length
 			if (whitelistedSSIDS.size() <= 0)
-				findViewById(R.id.whitelistRemoveButton).setVisibility(View.INVISIBLE);
+				whitelistRemoveButton.setVisibility(View.INVISIBLE);
 			else
-				findViewById(R.id.whitelistRemoveButton).setVisibility(View.VISIBLE);
+				whitelistRemoveButton.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -164,7 +167,7 @@ public class MainInterface extends ListActivity {
 		});
 
 		AlertDialog dialog = builder.create();
-		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE); // Show keyboard
 		dialog.show();
 	}
 	
