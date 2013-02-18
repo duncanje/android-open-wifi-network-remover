@@ -48,6 +48,7 @@ public class MainInterface extends ListActivity {
 	
 	// Interface components
 	private CheckBox enabledCheckBox;
+	private View settingsLayout;
 	private CheckBox notificationCheckBox;
 	private ListView whitelist;
 	
@@ -64,6 +65,7 @@ public class MainInterface extends ListActivity {
 		setListAdapter(whitelistAdapter);
 		
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
+		settingsLayout = (View) findViewById(R.id.settings_layout);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
 		whitelist = (ListView) findViewById(android.R.id.list);
 		
@@ -78,10 +80,14 @@ public class MainInterface extends ListActivity {
 	// Performs updates to the UI after major events
 	public void updateUI() {
 		// Set enabled checkbox
-		if (settings.get("enabled") == 1)
+		if (settings.get("enabled") == 1) {
 			enabledCheckBox.setChecked(true);
-		else
+			settingsLayout.setVisibility(View.VISIBLE);
+		}
+		else {
 			enabledCheckBox.setChecked(false);
+			settingsLayout.setVisibility(View.INVISIBLE);
+		}
 		
 		// Set notifications checkbox
 		if (settings.get("notifications") == 1)
@@ -121,6 +127,8 @@ public class MainInterface extends ListActivity {
 			else
 				settings.set("notifications", 0);
 		}
+		
+		updateUI();
 	}
 
 	// Pops up a dialog box prompting for an SSID and adds it to the whitelist
