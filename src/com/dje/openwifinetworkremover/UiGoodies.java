@@ -33,7 +33,7 @@ public class UiGoodies {
 	}
 	
 	public void displayToastNotification(String message, int enabled) {
-		if (enabled == 1)
+		if (enabled == Settings.TRUE)
 			displayToastNotification(message);
 	}
 	

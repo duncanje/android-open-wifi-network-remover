@@ -83,7 +83,7 @@ public class MainInterface extends ListActivity {
 	// Performs updates to the UI after major events
 	public void updateUI() {
 		// Set enabled checkbox
-		if (settings.get("enabled") == 1) {
+		if (settings.get("enabled") == Settings.TRUE) {
 			enabledCheckBox.setChecked(true);
 			settingsLayout.setVisibility(View.VISIBLE);
 		}
@@ -93,7 +93,7 @@ public class MainInterface extends ListActivity {
 		}
 		
 		// Set notifications checkbox
-		if (settings.get("notifications") == 1)
+		if (settings.get("notifications") == Settings.TRUE)
 			notificationCheckBox.setChecked(true);
 		else
 			notificationCheckBox.setChecked(false);
@@ -116,20 +116,16 @@ public class MainInterface extends ListActivity {
 	
 	// Handle a click on a checkbox
 	public void checkBoxClick(View view) {
-		boolean checked = ((CheckBox) view).isChecked();
+		int setting;
+		if (((CheckBox) view).isChecked())
+			setting = Settings.TRUE;
+		else
+			setting = Settings.FALSE;
 		
-		if (view.getId() == R.id.enabled_checkbox) {
-			if (checked)
-				settings.set("enabled", 1);
-			else
-				settings.set("enabled", 0);
-		}
-		if (view.getId() == R.id.notification_checkbox) {
-			if (checked)
-				settings.set("notifications", 1);
-			else
-				settings.set("notifications", 0);
-		}
+		if (view.getId() == R.id.enabled_checkbox)
+			settings.set("enabled", setting);
+		else if (view.getId() == R.id.notification_checkbox)
+			settings.set("notifications", setting);
 		
 		updateUI();
 	}

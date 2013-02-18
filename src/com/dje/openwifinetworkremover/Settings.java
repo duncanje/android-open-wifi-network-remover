@@ -29,10 +29,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Settings {
+	
+	public final static int TRUE = 1;
+	public final static int FALSE = 0;
 	
 	private SharedPreferences settings;
 	private SharedPreferences.Editor settingsEditor;
