@@ -38,6 +38,7 @@ public class Settings {
 	
 	public final static int TRUE = 1;
 	public final static int FALSE = 0;
+	public final static int ERROR = -1;
 	
 	private SharedPreferences settings;
 	private SharedPreferences.Editor settingsEditor;
@@ -55,47 +56,47 @@ public class Settings {
 	
 	// Convert an ArrayList to a separated string and store it
 	public void set(String key, ArrayList<String> list) {
-		int whitelistLength = settings.getInt("whitelistLength", -1);
+		int whitelistLength = settings.getInt("whitelistLength", ERROR);
 		
 		Iterator<String> listIterator = list.iterator();
 		int count = 0;
 		while (listIterator.hasNext()) {
-			settingsEditor.putString("whitelist"+count, listIterator.next());
+			settingsEditor.putString(key+count, listIterator.next());
 			count++;
 		}
 		settingsEditor.putInt("whitelistLength", count);
 		
 		if (count < whitelistLength) {
 			for (int i = count; i < whitelistLength; i++)
-				settingsEditor.remove("whitelist"+i);
+				settingsEditor.remove(key+i);
 		}
 		
 		settingsEditor.commit();
 	}
 	
-	// Retrieve a value for a given key, return -1 in case of an error
+	// Retrieve a value for a given key, return ERROR constant in case of an error
 	public int get(String key) {
-		return settings.getInt(key, -1);
+		return settings.getInt(key, ERROR);
 	}
 	
 	// Retrieve an ArrayList for a given key
 	public ArrayList<String> getList(String key) {
 		// Attempt migration on devices with Android 3.0+
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
-			migrateToNewStorage();
+			migrateToNewStorage(key);
 		
-		int whitelistLength = settings.getInt("whitelistLength", -1);
+		int whitelistLength = settings.getInt("whitelistLength", ERROR);
 		ArrayList<String> outList = new ArrayList<String>();
 		
 		for (int i = 0; i < whitelistLength; i++)
-			outList.add(settings.getString("whitelist"+i, "Error"));
+			outList.add(settings.getString(key+i, "Error"));
 
 		return outList;
 	}
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void migrateToNewStorage() {
-		HashSet <String> oldList = (HashSet<String>) settings.getStringSet("whitelist", null);
+	private void migrateToNewStorage(String key) {
+		HashSet <String> oldList = (HashSet<String>) settings.getStringSet(key, null);
 		
 		if (oldList != null) {
 			ArrayList<String> outList = new ArrayList<String>();
@@ -104,8 +105,8 @@ public class Settings {
 				outList.add(iterator.next());
 			}
 			
-			set("whitelist", outList);
-			settingsEditor.remove("whitelist");
+			set(key, outList);
+			settingsEditor.remove(key);
 			settingsEditor.commit();
 		}
 	}
