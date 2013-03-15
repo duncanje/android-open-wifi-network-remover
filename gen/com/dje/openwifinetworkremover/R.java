@@ -35,7 +35,7 @@ public final class R {
         public static final int whitelist_layout=0x7f08000a;
     }
     public static final class layout {
-        public static final int activity_about_interface=0x7f030000;
+        public static final int about_interface=0x7f030000;
         public static final int main_interface=0x7f030001;
     }
     public static final class menu {

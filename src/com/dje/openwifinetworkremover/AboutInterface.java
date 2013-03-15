@@ -34,7 +34,7 @@ public class AboutInterface extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_about_interface);
+		setContentView(R.layout.about_interface);
 		
 		((ArrayTextView) findViewById(R.id.developer_label)).setText(getResources().getStringArray(R.array.developers));
 		
