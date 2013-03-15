@@ -51,7 +51,6 @@ public class MainInterface extends ListActivity {
 	private CheckBox enabledCheckBox;
 	private View settingsLayout;
 	private CheckBox notificationCheckBox;
-	private View whitelistLayout;
 	private ListView whitelist;
 	private Button whitelistRemoveButton;
 	
@@ -70,12 +69,8 @@ public class MainInterface extends ListActivity {
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		settingsLayout = (View) findViewById(R.id.settings_layout);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
-		whitelistLayout = (View) findViewById(R.id.whitelist_layout);
 		whitelist = (ListView) findViewById(android.R.id.list);
 		whitelistRemoveButton = (Button) findViewById(R.id.whitelistRemoveButton);
-		
-		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB)
-			whitelistLayout.setVisibility(View.INVISIBLE);
 		
 		updateUI();
 	}
@@ -98,20 +93,18 @@ public class MainInterface extends ListActivity {
 		else
 			notificationCheckBox.setChecked(false);
 		
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-			// Clear list and re-load it from stored whitelist
-			for (int i = 0; i < whitelist.getCount(); i++)
-				whitelist.setItemChecked(i, false);
-			whitelistedSSIDS.clear();
-			whitelistedSSIDS.addAll(settings.getList("whitelist"));
-			whitelistAdapter.notifyDataSetChanged();
-			
-			// Show/hide SSID remove button according to whitelist length
-			if (whitelistedSSIDS.size() <= 0)
-				whitelistRemoveButton.setVisibility(View.INVISIBLE);
-			else
-				whitelistRemoveButton.setVisibility(View.VISIBLE);
-		}
+		// Clear list and re-load it from stored whitelist
+		for (int i = 0; i < whitelist.getCount(); i++)
+			whitelist.setItemChecked(i, false);
+		whitelistedSSIDS.clear();
+		whitelistedSSIDS.addAll(settings.getList("whitelist"));
+		whitelistAdapter.notifyDataSetChanged();
+
+		// Show/hide SSID remove button according to whitelist length
+		if (whitelistedSSIDS.size() <= 0)
+			whitelistRemoveButton.setVisibility(View.INVISIBLE);
+		else
+			whitelistRemoveButton.setVisibility(View.VISIBLE);
 	}
 	
 	// Handle a click on a checkbox

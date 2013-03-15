@@ -26,15 +26,11 @@
 package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Settings {
 	
 	public final static int TRUE = 1;
@@ -54,16 +50,23 @@ public class Settings {
 		settingsEditor.commit();
 	}
 	
-	// Convert an ArrayList to a HashSet and store it for a given key
-	// Not ideal but a fast way of getting up and running
+	// Convert an ArrayList to a separated string and store it
 	public void set(String key, ArrayList<String> list) {
-		HashSet<String> set = new HashSet<String>();
+		int whitelistLength = settings.getInt("whitelistLength", -1);
 		
 		Iterator<String> listIterator = list.iterator();
-		while (listIterator.hasNext())
-			set.add(listIterator.next());
-
-		settingsEditor.putStringSet(key, set);
+		int count = 0;
+		while (listIterator.hasNext()) {
+			settingsEditor.putString("whitelist"+count, listIterator.next());
+			count++;
+		}
+		settingsEditor.putInt("whitelistLength", count);
+		
+		if (count < whitelistLength) {
+			for (int i = count; i < whitelistLength; i++)
+				settingsEditor.remove("whitelist"+i);
+		}
+		
 		settingsEditor.commit();
 	}
 	
@@ -74,14 +77,12 @@ public class Settings {
 	
 	// Retrieve an ArrayList for a given key
 	public ArrayList<String> getList(String key) {
-		HashSet <String> defaultSet = new HashSet<String>();
-		
-		HashSet<String> set = (HashSet<String>) settings.getStringSet(key, defaultSet);
-		
-		Iterator<String> setIterator = set.iterator();
+		//TODO Method to migrate data to the new storage system
+		int whitelistLength = settings.getInt("whitelistLength", -1);
 		ArrayList<String> outList = new ArrayList<String>();
-		while (setIterator.hasNext())
-			outList.add(setIterator.next());
+		
+		for (int i = 0; i < whitelistLength; i++)
+			outList.add(settings.getString("whitelist"+i, "Error"));
 
 		return outList;
 	}
