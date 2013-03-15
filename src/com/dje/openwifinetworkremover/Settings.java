@@ -26,10 +26,13 @@
 package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 public class Settings {
 	
@@ -77,7 +80,10 @@ public class Settings {
 	
 	// Retrieve an ArrayList for a given key
 	public ArrayList<String> getList(String key) {
-		//TODO Method to migrate data to the new storage system
+		// Attempt migration on devices with Android 3.0+
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
+			migrateToNewStorage();
+		
 		int whitelistLength = settings.getInt("whitelistLength", -1);
 		ArrayList<String> outList = new ArrayList<String>();
 		
@@ -85,5 +91,22 @@ public class Settings {
 			outList.add(settings.getString("whitelist"+i, "Error"));
 
 		return outList;
+	}
+	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void migrateToNewStorage() {
+		HashSet <String> oldList = (HashSet<String>) settings.getStringSet("whitelist", null);
+		
+		if (oldList != null) {
+			ArrayList<String> outList = new ArrayList<String>();
+			Iterator<String> iterator = oldList.iterator();
+			while (iterator.hasNext()) {
+				outList.add(iterator.next());
+			}
+			
+			set("whitelist", outList);
+			settingsEditor.remove("whitelist");
+			settingsEditor.commit();
+		}
 	}
 }
