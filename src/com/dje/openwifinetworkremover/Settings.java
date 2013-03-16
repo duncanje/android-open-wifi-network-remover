@@ -56,7 +56,7 @@ public class Settings {
 	
 	// Convert an ArrayList to a separated string and store it
 	public void set(String key, ArrayList<String> list) {
-		int whitelistLength = settings.getInt("whitelistLength", ERROR);
+		int length = settings.getInt(key+"Length", ERROR);
 		
 		Iterator<String> listIterator = list.iterator();
 		int count = 0;
@@ -64,10 +64,10 @@ public class Settings {
 			settingsEditor.putString(key+count, listIterator.next());
 			count++;
 		}
-		settingsEditor.putInt("whitelistLength", count);
+		settingsEditor.putInt(key+"Length", count);
 		
-		if (count < whitelistLength) {
-			for (int i = count; i < whitelistLength; i++)
+		if (count < length) {
+			for (int i = count; i < length; i++)
 				settingsEditor.remove(key+i);
 		}
 		
@@ -85,10 +85,10 @@ public class Settings {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
 			migrateToNewStorage(key);
 		
-		int whitelistLength = settings.getInt("whitelistLength", ERROR);
+		int length = settings.getInt(key+"Length", ERROR);
 		ArrayList<String> outList = new ArrayList<String>();
 		
-		for (int i = 0; i < whitelistLength; i++)
+		for (int i = 0; i < length; i++)
 			outList.add(settings.getString(key+i, "Error"));
 
 		return outList;
