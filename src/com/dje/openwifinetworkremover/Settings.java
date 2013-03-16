@@ -67,8 +67,8 @@ public class Settings {
 		settingsEditor.putInt(key+"Length", count);
 		
 		if (count < length) {
-			for (int i = count; i < length; i++)
-				settingsEditor.remove(key+i);
+			for (; count < length; count++)
+				settingsEditor.remove(key+count);
 		}
 		
 		settingsEditor.commit();
