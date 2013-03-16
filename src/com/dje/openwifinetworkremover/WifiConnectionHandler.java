@@ -35,7 +35,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
-import android.util.Log;
 
 public class WifiConnectionHandler extends BroadcastReceiver {
 
@@ -58,8 +57,6 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
 			int currentStoredOpenNetworkId = settings.get("currentOpenNetworkId");
-			
-			Log.d(this.toString(),status.toString());
 			
 			// Add the network id to settings if connection complete and network is open
 			if (status.equals(SupplicantState.COMPLETED) && detectAppropriateNetwork()) {
