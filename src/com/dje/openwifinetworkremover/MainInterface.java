@@ -94,12 +94,16 @@ public class MainInterface extends ListActivity {
 			notificationCheckBox.setChecked(false);
 		
 		// Clear list and re-load it from stored whitelist
+		for (int i = 0; i < whitelist.getCount(); i++)
+			whitelist.setItemChecked(i, false);
+		
 		whitelistedSSIDS.clear();
 		whitelistedSSIDS.addAll(settings.getList("whitelist"));
 		whitelistAdapter.notifyDataSetChanged();
+		
 		for (int i = 0; i < whitelist.getCount(); i++)
 			whitelist.setItemChecked(i, false);
-
+		
 		// Show/hide SSID remove button according to whitelist length
 		if (whitelistedSSIDS.size() <= 0)
 			whitelistRemoveButton.setVisibility(View.INVISIBLE);
