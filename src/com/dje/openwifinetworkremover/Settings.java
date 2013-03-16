@@ -58,12 +58,10 @@ public class Settings {
 	public void set(String key, ArrayList<String> list) {
 		int length = settings.getInt(key+"Length", ERROR);
 		
-		Iterator<String> listIterator = list.iterator();
 		int count = 0;
-		while (listIterator.hasNext()) {
-			settingsEditor.putString(key+count, listIterator.next());
-			count++;
-		}
+		for (; count < list.size(); count++)
+			settingsEditor.putString(key+count, list.get(count));
+		
 		settingsEditor.putInt(key+"Length", count);
 		
 		if (count < length) {
