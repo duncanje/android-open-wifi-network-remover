@@ -94,11 +94,11 @@ public class MainInterface extends ListActivity {
 			notificationCheckBox.setChecked(false);
 		
 		// Clear list and re-load it from stored whitelist
-		for (int i = 0; i < whitelist.getCount(); i++)
-			whitelist.setItemChecked(i, false);
 		whitelistedSSIDS.clear();
 		whitelistedSSIDS.addAll(settings.getList("whitelist"));
 		whitelistAdapter.notifyDataSetChanged();
+		for (int i = 0; i < whitelist.getCount(); i++)
+			whitelist.setItemChecked(i, false);
 
 		// Show/hide SSID remove button according to whitelist length
 		if (whitelistedSSIDS.size() <= 0)
@@ -163,20 +163,23 @@ public class MainInterface extends ListActivity {
 	// Removes the selected SSID(s) from the whitelist
 	public void whitelistRemoveHandler(View view) {
 		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
+		int checkedIdsLength = checkedIds.size();
 		
-		int removedCount = 0;
-		for (int i = 0; i < checkedIds.size(); i++) {
-			if (checkedIds.get(i) == true) {
-				whitelistedSSIDS.remove(i-removedCount); // Fix shifted indexes
-				removedCount++;
-			}
-		}
-		
-		if (removedCount == 0)
+		if (checkedIdsLength == 0) {
 			uiGoodies.displayToastNotification(this.getString(R.string.no_ssid_selected));
-		
-		settings.set("whitelist", whitelistedSSIDS);
-		updateUI();
+		}
+		else {
+			int removedCount = 0;
+			for (int i = 0; i < checkedIdsLength; i++) {
+				if (checkedIds.get(i) == true) {
+					whitelistedSSIDS.remove(i-removedCount); // Fix shifted indexes
+					removedCount++;
+				}
+			}
+			
+			settings.set("whitelist", whitelistedSSIDS);
+			updateUI();
+		}
 	}
 	
 	@Override
