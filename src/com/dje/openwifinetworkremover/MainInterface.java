@@ -167,20 +167,19 @@ public class MainInterface extends ListActivity {
 	// Removes the selected SSID(s) from the whitelist
 	public void whitelistRemoveHandler(View view) {
 		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
-		int checkedIdsLength = checkedIds.size();
 		
-		if (checkedIdsLength == 0) {
+		int removedCount = 0;
+		for (int i = 0; i < checkedIds.size(); i++) {
+			if (checkedIds.get(i) == true) {
+				whitelistedSSIDS.remove(i-removedCount); // Fix shifted indexes
+				removedCount++;
+			}
+		}
+
+		if (removedCount == 0) {
 			uiGoodies.displayToastNotification(this.getString(R.string.no_ssid_selected));
 		}
 		else {
-			int removedCount = 0;
-			for (int i = 0; i < checkedIdsLength; i++) {
-				if (checkedIds.get(i) == true) {
-					whitelistedSSIDS.remove(i-removedCount); // Fix shifted indexes
-					removedCount++;
-				}
-			}
-			
 			settings.set("whitelist", whitelistedSSIDS);
 			updateUI();
 		}

@@ -92,6 +92,7 @@ public class Settings {
 		return outList;
 	}
 	
+	// Migrate from the old storage system (0.1-0.1.1) to the new system
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void migrateToNewStorage(String key) {
 		HashSet <String> oldList = (HashSet<String>) settings.getStringSet(key, null);
