@@ -48,7 +48,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		settings = new Settings(context);
-		if (settings.get("enabled") == Settings.TRUE) {
+		if (settings.get("enabled") != Settings.FALSE) {
 			wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
 			lock.acquire();
@@ -66,14 +66,14 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			// If connecting to any other network reset the stored network id in case it wasn't unset on disconnect
 			else if (status.equals(SupplicantState.COMPLETED)) {
-				settings.set("currentOpenNetworkId", -1); // Reset stored network id
+				settings.set("currentOpenNetworkId", Settings.NULL); // Reset stored network id
 			}
 			
 			// Forgot network and remove id from settings on disconnection if we are connected to an open network
-			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != -1) {
+			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != Settings.NULL) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				wifiManager.saveConfiguration();
-				settings.set("currentOpenNetworkId", -1); // Reset stored network id
+				settings.set("currentOpenNetworkId", Settings.NULL); // Reset stored network id
 				uiGoodies.displayToastNotification("Open network forgotten", settings.get("notifications"));
 			}
 			

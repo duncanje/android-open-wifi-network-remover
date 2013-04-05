@@ -39,6 +39,7 @@ public class Settings {
 	public final static int TRUE = 1;
 	public final static int FALSE = 0;
 	public final static int ERROR = -1;
+	public final static int NULL = -2;
 	
 	private SharedPreferences settings;
 	private SharedPreferences.Editor settingsEditor;

@@ -78,20 +78,20 @@ public class MainInterface extends ListActivity {
 	// Performs updates to the UI after major events
 	public void updateUI() {
 		// Set enabled checkbox
-		if (settings.get("enabled") == Settings.TRUE) {
-			enabledCheckBox.setChecked(true);
-			settingsLayout.setVisibility(View.VISIBLE);
-		}
-		else {
+		if (settings.get("enabled") == Settings.FALSE) {
 			enabledCheckBox.setChecked(false);
 			settingsLayout.setVisibility(View.INVISIBLE);
 		}
+		else {
+			enabledCheckBox.setChecked(true);
+			settingsLayout.setVisibility(View.VISIBLE);
+		}
 		
 		// Set notifications checkbox
-		if (settings.get("notifications") == Settings.TRUE)
-			notificationCheckBox.setChecked(true);
-		else
+		if (settings.get("notifications") == Settings.FALSE)
 			notificationCheckBox.setChecked(false);
+		else
+			notificationCheckBox.setChecked(true);
 		
 		// Clear list and re-load it from stored whitelist
 		for (int i = 0; i < whitelist.getCount(); i++)
