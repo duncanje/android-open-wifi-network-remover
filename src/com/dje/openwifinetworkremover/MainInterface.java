@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainInterface extends ListActivity {
 	
@@ -48,11 +49,12 @@ public class MainInterface extends ListActivity {
 	private UiGoodies uiGoodies;
 	
 	// Interface components
-	private CheckBox enabledCheckBox;
 	private View settingsLayout;
+	private CheckBox enabledCheckBox;
+	private Button whitelistRemoveButton;
 	private CheckBox notificationCheckBox;
 	private ListView whitelist;
-	private Button whitelistRemoveButton;
+	private TextView emptyWhitelistLabel;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,12 @@ public class MainInterface extends ListActivity {
 		whitelistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, whitelistedSSIDS);
 		setListAdapter(whitelistAdapter);
 		
-		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		settingsLayout = (View) findViewById(R.id.settings_layout);
+		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
+		whitelistRemoveButton = (Button) findViewById(R.id.whitelist_remove_button);
 		whitelist = (ListView) findViewById(android.R.id.list);
-		whitelistRemoveButton = (Button) findViewById(R.id.whitelistRemoveButton);
+		emptyWhitelistLabel = (TextView) findViewById(R.id.empty_whitelist_label);
 		
 		updateUI();
 	}
@@ -105,10 +108,14 @@ public class MainInterface extends ListActivity {
 			whitelist.setItemChecked(i, false);
 		
 		// Show/hide SSID remove button according to whitelist length
-		if (whitelistedSSIDS.size() <= 0)
+		if (whitelistedSSIDS.size() <= 0) {
 			whitelistRemoveButton.setVisibility(View.INVISIBLE);
-		else
+			emptyWhitelistLabel.setVisibility(View.VISIBLE);
+		}
+		else {
 			whitelistRemoveButton.setVisibility(View.VISIBLE);
+			emptyWhitelistLabel.setVisibility(View.INVISIBLE);
+		}
 	}
 	
 	// Handle a click on a checkbox

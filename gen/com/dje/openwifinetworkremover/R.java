@@ -22,17 +22,18 @@ public final class R {
         public static final int about_blurb_label=0x7f080001;
         public static final int developer_header_label=0x7f080004;
         public static final int developer_label=0x7f080005;
+        public static final int empty_whitelist_label=0x7f08000f;
         public static final int enabled_checkbox=0x7f080007;
-        public static final int menu_settings=0x7f08000f;
+        public static final int menu_settings=0x7f080010;
         public static final int notification_checkbox=0x7f080009;
         public static final int settings_layout=0x7f080008;
         public static final int version_header_label=0x7f080002;
         public static final int version_label=0x7f080003;
-        public static final int whitelistAddButton=0x7f08000d;
-        public static final int whitelistRemoveButton=0x7f08000e;
+        public static final int whitelist_add_button=0x7f08000d;
         public static final int whitelist_header_layout=0x7f08000b;
         public static final int whitelist_heading=0x7f08000c;
         public static final int whitelist_layout=0x7f08000a;
+        public static final int whitelist_remove_button=0x7f08000e;
     }
     public static final class layout {
         public static final int about_interface=0x7f030000;
@@ -42,9 +43,10 @@ public final class R {
         public static final int main_interface=0x7f070000;
     }
     public static final class string {
-        public static final int about_blurb_label=0x7f04000f;
+        public static final int about_blurb_label=0x7f040010;
         public static final int app_name=0x7f040000;
-        public static final int developer_header_label=0x7f04000e;
+        public static final int developer_header_label=0x7f04000f;
+        public static final int empty_whitelist_message=0x7f04000c;
         public static final int enabled_checkbox_label=0x7f040005;
         public static final int menu_about=0x7f040002;
         public static final int no_ssid_selected=0x7f04000a;
@@ -52,9 +54,9 @@ public final class R {
         public static final int settings_backup_key=0x7f040004;
         public static final int settings_key=0x7f040003;
         public static final int ssid_already_in_whitelist=0x7f04000b;
-        public static final int title_activity_about_interface=0x7f04000c;
+        public static final int title_activity_about_interface=0x7f04000d;
         public static final int version=0x7f040001;
-        public static final int version_header_label=0x7f04000d;
+        public static final int version_header_label=0x7f04000e;
         public static final int whitelist_add_button_label=0x7f040008;
         public static final int whitelist_heading=0x7f040007;
         public static final int whitelist_remove_button_label=0x7f040009;

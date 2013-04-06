@@ -33,7 +33,7 @@
             android:text="@string/notification_checkbox_label"
             android:textSize="20sp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/whitelist_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <Button
-                    android:id="@+id/whitelistAddButton"
+                    android:id="@+id/whitelist_add_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -65,7 +65,7 @@
                     android:text="@string/whitelist_add_button_label" />
 
                 <Button
-                    android:id="@+id/whitelistRemoveButton"
+                    android:id="@+id/whitelist_remove_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -77,13 +77,26 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/empty_whitelist_label"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/whitelist_header_layout"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:text="@string/empty_whitelist_message"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <ListView
                 android:id="@android:id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/whitelist_header_layout"
                 android:choiceMode="multipleChoice" >
+
             </ListView>
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
