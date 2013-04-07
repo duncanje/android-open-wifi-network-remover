@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open WiFi Network Remover</string>
+    <string name="app_name">Open WiFi Cleaner</string>
     <string name="version">0.1.3</string>
     <string name="menu_about">About</string>
     <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
@@ -13,7 +13,7 @@
     <string name="whitelist_remove_button_label">Remove</string>
     <string name="no_ssid_selected">No network SSID(s) selected!</string>
     <string name="ssid_already_in_whitelist">Network SSID already in whitelist!</string>
-    <string name="empty_whitelist_message">Whitelist is empty!\nAll open networks will be forgotten</string>
+    <string name="empty_whitelist_message">All open networks will be forgotten!\n\nAdd SSIDs to keep specific networks</string>
     <string name="title_activity_about_interface">About</string><string name="version_header_label">Version</string>
     
     <string name="developer_header_label">Developers</string>
