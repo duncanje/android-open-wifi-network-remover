@@ -89,7 +89,8 @@
                 android:gravity="center"
                 android:text="@string/empty_whitelist_message"
                 android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/darker_gray" />
 
             <ListView
                 android:id="@android:id/list"
