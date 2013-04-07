@@ -99,13 +99,17 @@ public class Settings {
 		if (oldList != null) {
 			ArrayList<String> outList = new ArrayList<String>();
 			Iterator<String> iterator = oldList.iterator();
-			while (iterator.hasNext()) {
+			while (iterator.hasNext())
 				outList.add(iterator.next());
-			}
 			
 			set(key, outList);
 			settingsEditor.remove(key);
 			settingsEditor.commit();
 		}
+	}
+	
+	// Useful for debugging - returns all currently stored key-value pairs in a readable form
+	public String getAllReadable() {
+		return settings.getAll().toString();
 	}
 }
