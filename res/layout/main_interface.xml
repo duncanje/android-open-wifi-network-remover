@@ -61,7 +61,7 @@
                     android:layout_toRightOf="@id/whitelist_heading"
                     android:gravity="center"
                     android:minHeight="45dip"
-                    android:minWidth="100dp"
+                    android:minWidth="90dp"
                     android:onClick="whitelistAddHandler"
                     android:text="@string/whitelist_add_button_label"
                     android:textAlignment="center" />
@@ -70,11 +70,11 @@
                     android:id="@+id/whitelist_remove_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/whitelist_add_button"
                     android:gravity="center"
                     android:minHeight="45dip"
-                    android:minWidth="100dp"
+                    android:minWidth="90dp"
                     android:onClick="whitelistRemoveHandler"
                     android:text="@string/whitelist_remove_button_label" />
 
