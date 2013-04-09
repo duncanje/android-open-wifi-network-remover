@@ -60,7 +60,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			// Add the network id to settings if connection complete and network is open
 			if (status.equals(SupplicantState.COMPLETED) && detectAppropriateNetwork()) {
-				uiGoodies.displayToastNotification("Open network (will be forgotten)", settings.get("notifications"));
+				uiGoodies.displayToastNotification(context.getString(R.string.network_will_be_forgotten), settings.get("notifications"));
 				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
 			
@@ -74,7 +74,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				wifiManager.saveConfiguration();
 				settings.set("currentOpenNetworkId", Settings.NULL); // Reset stored network id
-				uiGoodies.displayToastNotification("Open network forgotten", settings.get("notifications"));
+				uiGoodies.displayToastNotification(context.getString(R.string.network_forgotten), settings.get("notifications"));
 			}
 			
 			lock.release();

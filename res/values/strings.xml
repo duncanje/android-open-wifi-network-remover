@@ -15,6 +15,8 @@
     <string name="ssid_already_in_whitelist">Network SSID already in whitelist!</string>
     <string name="empty_whitelist_message">All open networks will be forgotten!\n\nAdd SSIDs to keep specific networks</string>
     <string name="title_activity_about_interface">About</string><string name="version_header_label">Version</string>
+    <string name="network_will_be_forgotten">Open network (will be forgotten)</string>
+    <string name="network_forgotten">Open network forgotten</string>
     
     <string name="developer_header_label">Developers</string>
     <string name="about_blurb_label">Forgets open WiFi networks after disconnecting\n\nLicensed under the GNU GPL\nhttp://gnu.org/licenses/gpl\n\nhttps://github.com/duncanje/android-open-wifi-network-remover</string>

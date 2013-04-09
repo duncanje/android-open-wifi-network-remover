@@ -43,12 +43,14 @@ public final class R {
         public static final int main_interface=0x7f070000;
     }
     public static final class string {
-        public static final int about_blurb_label=0x7f040010;
+        public static final int about_blurb_label=0x7f040012;
         public static final int app_name=0x7f040000;
-        public static final int developer_header_label=0x7f04000f;
+        public static final int developer_header_label=0x7f040011;
         public static final int empty_whitelist_message=0x7f04000c;
         public static final int enabled_checkbox_label=0x7f040005;
         public static final int menu_about=0x7f040002;
+        public static final int network_forgotten=0x7f040010;
+        public static final int network_will_be_forgotten=0x7f04000f;
         public static final int no_ssid_selected=0x7f04000a;
         public static final int notification_checkbox_label=0x7f040006;
         public static final int settings_backup_key=0x7f040004;
