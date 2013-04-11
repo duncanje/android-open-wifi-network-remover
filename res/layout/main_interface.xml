@@ -97,7 +97,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/whitelist_header_layout"
-                android:choiceMode="multipleChoice" >
+                android:choiceMode="multipleChoice"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="true" >
 
             </ListView>
         </RelativeLayout>
