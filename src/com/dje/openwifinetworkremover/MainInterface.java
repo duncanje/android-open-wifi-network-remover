@@ -28,6 +28,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -201,9 +202,19 @@ public class MainInterface extends ListActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    Intent launchAbout = new Intent(this, AboutInterface.class);
-	    startActivity(launchAbout);
+		if (item.getItemId() == R.id.menu_about) {
+			Intent launchAbout = new Intent(this, AboutInterface.class);
+			startActivity(launchAbout);
+		}
+		else {
+			clearNetworks();
+		}
+	    
 	    return super.onOptionsItemSelected(item);
+	}
+	
+	private void clearNetworks() {
+		Log.d(this.toString(), "Clear networks");
 	}
 
 }
