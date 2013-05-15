@@ -35,7 +35,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -52,7 +51,6 @@ public class MainInterface extends ListActivity {
 	// Interface components
 	private View settingsLayout;
 	private CheckBox enabledCheckBox;
-	private Button whitelistRemoveButton;
 	private CheckBox notificationCheckBox;
 	private ListView whitelist;
 	private TextView emptyWhitelistLabel;
@@ -72,7 +70,6 @@ public class MainInterface extends ListActivity {
 		settingsLayout = (View) findViewById(R.id.settings_layout);
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
-		whitelistRemoveButton = (Button) findViewById(R.id.whitelist_remove_button);
 		whitelist = (ListView) findViewById(android.R.id.list);
 		emptyWhitelistLabel = (TextView) findViewById(R.id.empty_whitelist_label);
 		
@@ -109,14 +106,10 @@ public class MainInterface extends ListActivity {
 			whitelist.setItemChecked(i, false);
 		
 		// Show/hide SSID remove button according to whitelist length
-		if (whitelistedSSIDS.size() <= 0) {
-			whitelistRemoveButton.setVisibility(View.INVISIBLE);
+		if (whitelistedSSIDS.size() <= 0)
 			emptyWhitelistLabel.setVisibility(View.VISIBLE);
-		}
-		else {
-			whitelistRemoveButton.setVisibility(View.VISIBLE);
+		else
 			emptyWhitelistLabel.setVisibility(View.INVISIBLE);
-		}
 	}
 	
 	// Handle a click on a checkbox
@@ -134,17 +127,43 @@ public class MainInterface extends ListActivity {
 		
 		updateUI();
 	}
-
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_interface, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.menu_about) {
+			Intent launchAbout = new Intent(this, AboutInterface.class);
+			startActivity(launchAbout);
+		}
+		else if (item.getItemId() == R.id.menu_add) {
+			whitelistAdd();
+		}
+		else if (item.getItemId() == R.id.menu_remove) {
+			whitelistRemove();
+		}
+		else {
+			clearNetworks();
+		}
+	    
+	    return super.onOptionsItemSelected(item);
+	}
+	
 	// Pops up a dialog box prompting for an SSID and adds it to the whitelist
-	public void whitelistAddHandler(View view) {	
+	public void whitelistAdd() {	
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
+
 		builder.setTitle("Enter SSID");
 		final EditText edit = new EditText(this);
 		edit.setSingleLine(true);
 		builder.setView(edit);
 		final String alreadyInWhitelistMessage = this.getString(R.string.ssid_already_in_whitelist);
-			
+
 		// Handle click on the Ok button
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
@@ -161,7 +180,7 @@ public class MainInterface extends ListActivity {
 				}
 			}
 		});
-		
+
 		// Handle click on the Cancel button
 		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {}
@@ -171,11 +190,11 @@ public class MainInterface extends ListActivity {
 		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE); // Show keyboard
 		dialog.show();
 	}
-	
+
 	// Removes the selected SSID(s) from the whitelist
-	public void whitelistRemoveHandler(View view) {
+	public void whitelistRemove() {
 		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
-		
+
 		int removedCount = 0;
 		for (int i = 0; i < checkedIds.size(); i++) {
 			if (checkedIds.get(i) == true) {
@@ -192,33 +211,7 @@ public class MainInterface extends ListActivity {
 			updateUI();
 		}
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_interface, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.menu_about) {
-			Intent launchAbout = new Intent(this, AboutInterface.class);
-			startActivity(launchAbout);
-		}
-		else if (item.getItemId() == R.id.menu_add) {
-			whitelistAddHandler(null);
-		}
-		else if (item.getItemId() == R.id.menu_remove) {
-			whitelistRemoveHandler(null);
-		}
-		else {
-			clearNetworks();
-		}
-	    
-	    return super.onOptionsItemSelected(item);
-	}
-	
+
 	private void clearNetworks() {
 		Log.d(this.toString(), "Clear networks");
 	}
