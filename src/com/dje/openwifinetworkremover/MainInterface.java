@@ -28,7 +28,6 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -155,7 +154,7 @@ public class MainInterface extends ListActivity {
 	}
 	
 	// Pops up a dialog box prompting for an SSID and adds it to the whitelist
-	public void whitelistAdd() {	
+	private void whitelistAdd() {	
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		builder.setTitle("Enter SSID");
@@ -174,8 +173,7 @@ public class MainInterface extends ListActivity {
 					}
 					else {
 						whitelistedSSIDS.add(edit.getText().toString());
-						settings.set("whitelist", whitelistedSSIDS);
-						updateUI();
+						storeWhitelist();
 					}
 				}
 			}
@@ -192,7 +190,7 @@ public class MainInterface extends ListActivity {
 	}
 
 	// Removes the selected SSID(s) from the whitelist
-	public void whitelistRemove() {
+	private void whitelistRemove() {
 		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
 
 		int removedCount = 0;
@@ -203,17 +201,21 @@ public class MainInterface extends ListActivity {
 			}
 		}
 
-		if (removedCount == 0) {
+		if (removedCount == 0)
 			uiGoodies.displayToastNotification(this.getString(R.string.no_ssid_selected));
-		}
-		else {
-			settings.set("whitelist", whitelistedSSIDS);
-			updateUI();
-		}
+		else
+			storeWhitelist();
 	}
 
+	// Clear all SSIDs from the whitelist
 	private void clearNetworks() {
-		Log.d(this.toString(), "Clear networks");
+		whitelistedSSIDS.clear();
+		storeWhitelist();
 	}
-
+	
+	// Store current whitelist in settings and update display
+	private void storeWhitelist() {
+		settings.set("whitelist", whitelistedSSIDS);
+		updateUI();
+	}
 }
