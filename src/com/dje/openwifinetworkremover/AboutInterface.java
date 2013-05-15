@@ -21,6 +21,8 @@
 
 package com.dje.openwifinetworkremover;
 
+import com.dje.interfacegoodies.ArrayTextView;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;

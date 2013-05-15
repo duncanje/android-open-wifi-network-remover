@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Open Wifi Network Remover'
+ * This file is part of 'Android Interface Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
@@ -19,7 +19,7 @@
  * MA 02110-1301, USA.
  */
 
-package com.dje.openwifinetworkremover;
+package com.dje.interfacegoodies;
 
 import android.content.Context;
 import android.util.AttributeSet;

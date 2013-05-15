@@ -23,6 +23,8 @@ package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
 
+import com.dje.interfacegoodies.Goodies;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -45,7 +47,7 @@ public class MainInterface extends ListActivity {
 	private ArrayAdapter<String> whitelistAdapter;
 	
 	private Settings settings;
-	private UiGoodies uiGoodies;
+	private Goodies uiGoodies;
 	
 	// Interface components
 	private View settingsLayout;
@@ -60,7 +62,7 @@ public class MainInterface extends ListActivity {
 		setContentView(R.layout.main_interface);
 		
 		settings = new Settings(this);
-		uiGoodies = new UiGoodies(this);
+		uiGoodies = new Goodies(this);
 		whitelistedSSIDS = new ArrayList<String>();
 		
 		whitelistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, whitelistedSSIDS);

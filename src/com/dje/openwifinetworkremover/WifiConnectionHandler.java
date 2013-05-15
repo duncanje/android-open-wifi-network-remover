@@ -28,6 +28,8 @@ package com.dje.openwifinetworkremover;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dje.interfacegoodies.Goodies;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +41,7 @@ import android.net.wifi.WifiManager.WifiLock;
 public class WifiConnectionHandler extends BroadcastReceiver {
 
 	private Settings settings;
-	private UiGoodies uiGoodies;
+	private Goodies uiGoodies;
 	
 	private WifiManager wifiManager;
 	private SupplicantState status;
@@ -53,7 +55,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
 			lock.acquire();
 			
-			uiGoodies = new UiGoodies(context);
+			uiGoodies = new Goodies(context);
 			
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
 			int currentStoredOpenNetworkId = settings.get("currentOpenNetworkId");

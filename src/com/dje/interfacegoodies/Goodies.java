@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Open Wifi Network Remover'
+ * This file is part of 'Android Interface Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
@@ -19,16 +19,18 @@
  * MA 02110-1301, USA.
  */
 
-package com.dje.openwifinetworkremover;
+package com.dje.interfacegoodies;
+
+import com.dje.openwifinetworkremover.Settings;
 
 import android.content.Context;
 import android.widget.Toast;
 
-public class UiGoodies {
+public class Goodies {
 	
 	private Context context;
 	
-	public UiGoodies(Context context) {
+	public Goodies(Context context) {
 		this.context = context;
 	}
 	
