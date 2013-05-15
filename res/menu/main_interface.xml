@@ -17,6 +17,8 @@
           android:title="@string/menu_remove"
           android:showAsAction="ifRoom|withText" />
     
-    <item android:id="@+id/menu_clear_networks" android:title="@string/menu_clear_networks"></item>
+    <item android:id="@+id/menu_clear_networks"
+        android:title="@string/menu_clear_networks"
+        android:showAsAction="never" />
     
 </menu>
