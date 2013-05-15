@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Android Interface Goodies'
+ * This file is part of 'Interface Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 

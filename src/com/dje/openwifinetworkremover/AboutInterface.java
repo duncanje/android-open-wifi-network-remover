@@ -21,14 +21,14 @@
 
 package com.dje.openwifinetworkremover;
 
-import com.dje.interfacegoodies.ArrayTextView;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+
+import com.dje.interfacegoodies.ArrayTextView;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AboutInterface extends Activity {

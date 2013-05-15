@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Android Interface Goodies'
+ * This file is part of 'Interface Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
@@ -21,10 +21,10 @@
 
 package com.dje.interfacegoodies;
 
-import com.dje.openwifinetworkremover.Settings;
-
 import android.content.Context;
 import android.widget.Toast;
+
+import com.dje.settingsgoodies.Settings;
 
 public class Goodies {
 	

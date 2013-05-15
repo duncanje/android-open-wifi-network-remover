@@ -28,8 +28,6 @@ package com.dje.openwifinetworkremover;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dje.interfacegoodies.Goodies;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +35,9 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
+
+import com.dje.interfacegoodies.Goodies;
+import com.dje.settingsgoodies.Settings;
 
 public class WifiConnectionHandler extends BroadcastReceiver {
 
