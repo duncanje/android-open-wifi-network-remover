@@ -5,6 +5,18 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_about"/>
-    <item android:id="@+id/menu_clear_networks" android:title="@string/menu_clear_networks"></item>
+    
+    
+    <item android:id="@+id/menu_add"
+          android:icon="@drawable/ic_menu_add"
+          android:title="@string/menu_add"
+          android:showAsAction="ifRoom|withText" />
 
+    <item android:id="@+id/menu_remove"
+          android:icon="@drawable/ic_menu_remove"
+          android:title="@string/menu_remove"
+          android:showAsAction="ifRoom|withText" />
+    
+    <item android:id="@+id/menu_clear_networks" android:title="@string/menu_clear_networks"></item>
+    
 </menu>

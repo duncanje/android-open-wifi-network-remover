@@ -206,6 +206,12 @@ public class MainInterface extends ListActivity {
 			Intent launchAbout = new Intent(this, AboutInterface.class);
 			startActivity(launchAbout);
 		}
+		else if (item.getItemId() == R.id.menu_add) {
+			whitelistAddHandler(null);
+		}
+		else if (item.getItemId() == R.id.menu_remove) {
+			whitelistRemoveHandler(null);
+		}
 		else {
 			clearNetworks();
 		}
