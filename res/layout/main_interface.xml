@@ -16,11 +16,10 @@
         android:text="@string/enabled_checkbox_label"
         android:textSize="20sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/settings_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:visibility="visible" >
 
         <CheckBox
@@ -33,52 +32,44 @@
             android:text="@string/notification_checkbox_label"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/empty_whitelist_label"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/notification_checkbox"
+            android:gravity="center"
+            android:text="@string/empty_whitelist_message"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/darker_gray" />
+
         <RelativeLayout
             android:id="@+id/whitelist_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/notification_checkbox"
             android:orientation="vertical" >
 
-            <RelativeLayout
-                android:id="@+id/whitelist_header_layout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp" >
-
-                <TextView
-                    android:id="@+id/whitelist_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:paddingLeft="5dp"
-                    android:text="@string/whitelist_heading"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            </RelativeLayout>
-
             <TextView
-                android:id="@+id/empty_whitelist_label"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_below="@id/whitelist_header_layout"
-                android:layout_gravity="right"
+                android:id="@+id/whitelist_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:gravity="center"
-                android:text="@string/empty_whitelist_message"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/darker_gray" />
+                android:paddingLeft="5dp"
+                android:text="@string/whitelist_heading"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ListView
                 android:id="@android:id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/whitelist_header_layout"
+                android:layout_below="@id/whitelist_heading"
                 android:choiceMode="multipleChoice"
                 android:footerDividersEnabled="false"
                 android:headerDividersEnabled="true" >
 
             </ListView>
         </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

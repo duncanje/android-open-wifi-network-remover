@@ -56,6 +56,7 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 	
 	// Interface components
 	private View settingsLayout;
+	private View whitelistLayout;
 	private CheckBox enabledCheckBox;
 	private CheckBox notificationCheckBox;
 	private ListView whitelist;
@@ -74,6 +75,7 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 		setListAdapter(whitelistAdapter);
 		
 		settingsLayout = (View) findViewById(R.id.settings_layout);
+		whitelistLayout = (View) findViewById(R.id.whitelist_layout);
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
 		whitelist = (ListView) findViewById(android.R.id.list);
@@ -117,10 +119,14 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 			whitelist.setItemChecked(i, false);
 		
 		// Show/hide SSID remove button according to whitelist length
-		if (whitelistedSSIDS.size() <= 0)
+		if (whitelistedSSIDS.size() == 0) {
+			whitelistLayout.setVisibility(View.INVISIBLE);
 			emptyWhitelistLabel.setVisibility(View.VISIBLE);
-		else
+		}
+		else {
+			whitelistLayout.setVisibility(View.VISIBLE);
 			emptyWhitelistLabel.setVisibility(View.INVISIBLE);
+		}
 		
 		refreshActionBar();
 	}
