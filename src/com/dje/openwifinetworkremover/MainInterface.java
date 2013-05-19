@@ -238,7 +238,7 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 				String ssidInput = edit.getText().toString();
 				if (ssidInput.length() > 0) {
 					if (whitelistedSSIDS.contains(ssidInput)) {
-						uiGoodies.displayToastNotification(alreadyInWhitelistMessage);
+						uiGoodies.displayToastNotification(ssidInput+" "+alreadyInWhitelistMessage);
 					}
 					else {
 						whitelistedSSIDS.add(edit.getText().toString());

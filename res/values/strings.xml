@@ -5,14 +5,14 @@
     <string name="version">0.1.4-dev</string>
     <string name="menu_about">About</string>
     <string name="menu_add">Add SSID</string>
-    <string name="menu_remove">Remove SSID(s)</string>
+    <string name="menu_remove">Remove selection</string>
     <string name="menu_clear_whitelist">Clear whitelist</string>
     <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
     <string name="settings_backup_key">settings</string>
     <string name="enabled_checkbox_label">Enabled</string>
     <string name="notification_checkbox_label">Notify on connect/disconnect</string>
     <string name="whitelist_heading">Whitelist</string>
-    <string name="ssid_already_in_whitelist">Network SSID already in whitelist!</string>
+    <string name="ssid_already_in_whitelist">already in whitelist!</string>
     <string name="empty_whitelist_message">All open networks will be forgotten!\n\nAdd SSIDs to keep specific networks</string>
     <string name="title_activity_about_interface">About</string><string name="version_header_label">Version</string>
     <string name="network_will_be_forgotten">Open network (will be forgotten)</string>
