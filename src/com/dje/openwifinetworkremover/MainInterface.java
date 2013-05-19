@@ -23,16 +23,20 @@ package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -42,7 +46,7 @@ import android.widget.TextView;
 import com.dje.interfacegoodies.Goodies;
 import com.dje.settingsgoodies.Settings;
 
-public class MainInterface extends ListActivity {
+public class MainInterface extends ListActivity implements OnItemClickListener {
 	
 	private ArrayList<String> whitelistedSSIDS;
 	private ArrayAdapter<String> whitelistAdapter;
@@ -75,9 +79,14 @@ public class MainInterface extends ListActivity {
 		whitelist = (ListView) findViewById(android.R.id.list);
 		emptyWhitelistLabel = (TextView) findViewById(R.id.empty_whitelist_label);
 		
+		// Listen for clicks on whitelist items to allow the action bar items to be altered (Android 3.0+)
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
+			whitelist.setOnItemClickListener(this);
+		
 		updateUI();
 	}
 
+	
 	// Performs updates to the UI after major events
 	public void updateUI() {
 		// Set enabled checkbox
@@ -112,6 +121,8 @@ public class MainInterface extends ListActivity {
 			emptyWhitelistLabel.setVisibility(View.VISIBLE);
 		else
 			emptyWhitelistLabel.setVisibility(View.INVISIBLE);
+		
+		refreshActionBar();
 	}
 	
 	// Handle a click on a checkbox
@@ -130,6 +141,7 @@ public class MainInterface extends ListActivity {
 		updateUI();
 	}
 	
+	// Called once on startup to populate initial menu entries
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -137,6 +149,29 @@ public class MainInterface extends ListActivity {
 		return true;
 	}
 	
+	// Called each time a menu is to be opened/has been invalidated
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem removeItem = menu.findItem(R.id.menu_remove);
+		MenuItem clearWhitelistItem = menu.findItem(R.id.menu_clear_networks);
+		
+		// Only display remove option when an item is selected
+		if (listItemSelected(whitelist))
+			removeItem.setVisible(true);
+		else
+			removeItem.setVisible(false);
+		
+		// Only display clear whitelist option when there are items in the whitelist 
+		if (whitelistedSSIDS.size() == 0)
+			clearWhitelistItem.setVisible(false);
+		else
+			clearWhitelistItem.setVisible(true);
+		
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+
+	// Click handler for menu items
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_about) {
@@ -156,6 +191,31 @@ public class MainInterface extends ListActivity {
 	    return super.onOptionsItemSelected(item);
 	}
 	
+	// Click handler for list items
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		refreshActionBar();
+	}
+	
+	// Checks if there is a currently selected list item
+	private boolean listItemSelected(ListView list) {
+		SparseBooleanArray listItems = list.getCheckedItemPositions();
+		
+		for (int i = 0; i < listItems.size(); i++) {
+			if (listItems.get(i))
+				return true;
+		}
+		return false;
+	}
+
+	// Invalidate action bar to cause onPrepareOptionsMenu to be called
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void refreshActionBar() {
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
+			invalidateOptionsMenu();
+	}
+
+
 	// Pops up a dialog box prompting for an SSID and adds it to the whitelist
 	private void whitelistAdd() {	
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -194,20 +254,22 @@ public class MainInterface extends ListActivity {
 
 	// Removes the selected SSID(s) from the whitelist
 	private void whitelistRemove() {
-		SparseBooleanArray checkedIds = whitelist.getCheckedItemPositions();
+		SparseBooleanArray listItems = whitelist.getCheckedItemPositions();
 
 		int removedCount = 0;
-		for (int i = 0; i < checkedIds.size(); i++) {
-			if (checkedIds.get(i) == true) {
+		for (int i = 0; i < listItems.size(); i++) {
+			if (listItems.get(i)) {
 				whitelistedSSIDS.remove(i-removedCount); // Fix shifted indexes
 				removedCount++;
 			}
 		}
 
-		if (removedCount == 0)
+		if (removedCount == 0) {
 			uiGoodies.displayToastNotification(this.getString(R.string.no_ssid_selected));
-		else
+		}
+		else {
 			storeWhitelist();
+		}
 	}
 
 	// Clear all SSIDs from the whitelist

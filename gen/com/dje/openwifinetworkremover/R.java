@@ -53,7 +53,7 @@ public final class R {
         public static final int enabled_checkbox_label=0x7f040008;
         public static final int menu_about=0x7f040002;
         public static final int menu_add=0x7f040003;
-        public static final int menu_clear_networks=0x7f040005;
+        public static final int menu_clear_whitelist=0x7f040005;
         public static final int menu_remove=0x7f040004;
         public static final int network_forgotten=0x7f040011;
         public static final int network_will_be_forgotten=0x7f040010;
