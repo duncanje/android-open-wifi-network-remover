@@ -264,12 +264,8 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 			}
 		}
 
-		if (removedCount == 0) {
-			uiGoodies.displayToastNotification(this.getString(R.string.no_ssid_selected));
-		}
-		else {
+		if (removedCount > 0)
 			storeWhitelist();
-		}
 	}
 
 	// Clear all SSIDs from the whitelist

@@ -12,7 +12,6 @@
     <string name="enabled_checkbox_label">Enabled</string>
     <string name="notification_checkbox_label">Notify on connect/disconnect</string>
     <string name="whitelist_heading">Whitelist</string>
-    <string name="no_ssid_selected">No network SSID(s) selected!</string>
     <string name="ssid_already_in_whitelist">Network SSID already in whitelist!</string>
     <string name="empty_whitelist_message">All open networks will be forgotten!\n\nAdd SSIDs to keep specific networks</string>
     <string name="title_activity_about_interface">About</string><string name="version_header_label">Version</string>
