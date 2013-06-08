@@ -46,7 +46,7 @@ import android.widget.TextView;
 import com.dje.interfacegoodies.Goodies;
 import com.dje.settingsgoodies.Settings;
 
-public class MainInterface extends ListActivity implements OnItemClickListener {
+public class MainActivity extends ListActivity implements OnItemClickListener {
 	
 	private ArrayList<String> whitelistedSSIDS;
 	private ArrayAdapter<String> whitelistAdapter;
@@ -65,7 +65,7 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_interface);
+		setContentView(R.layout.main_activity);
 		
 		settings = new Settings(this);
 		uiGoodies = new Goodies(this);
@@ -151,7 +151,7 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_interface, menu);
+		getMenuInflater().inflate(R.menu.main_activity, menu);
 		return true;
 	}
 	
@@ -181,7 +181,7 @@ public class MainInterface extends ListActivity implements OnItemClickListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_about) {
-			Intent launchAbout = new Intent(this, AboutInterface.class);
+			Intent launchAbout = new Intent(this, AboutActivity.class);
 			startActivity(launchAbout);
 		}
 		else if (item.getItemId() == R.id.menu_add) {

@@ -14,7 +14,8 @@
     <string name="whitelist_heading">Whitelist</string>
     <string name="ssid_already_in_whitelist">already in whitelist!</string>
     <string name="empty_whitelist_message">All open networks will be forgotten!\n\nAdd SSIDs to keep specific networks</string>
-    <string name="title_activity_about_interface">About</string><string name="version_header_label">Version</string>
+    <string name="title_activity_about_interface">About</string>
+    <string name="version_header_label">Version</string>
     <string name="network_will_be_forgotten">Open network (will be forgotten)</string>
     <string name="network_forgotten">Open network forgotten</string>
     

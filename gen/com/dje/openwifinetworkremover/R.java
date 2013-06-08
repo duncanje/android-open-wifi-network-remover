@@ -39,11 +39,11 @@ public final class R {
         public static final int whitelist_layout=0x7f08000b;
     }
     public static final class layout {
-        public static final int about_interface=0x7f030000;
-        public static final int main_interface=0x7f030001;
+        public static final int about_activity=0x7f030000;
+        public static final int main_activity=0x7f030001;
     }
     public static final class menu {
-        public static final int main_interface=0x7f070000;
+        public static final int main_activity=0x7f070000;
     }
     public static final class string {
         public static final int about_blurb_label=0x7f040012;

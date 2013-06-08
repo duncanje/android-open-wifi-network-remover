@@ -31,12 +31,12 @@ import android.view.MenuItem;
 import com.dje.interfacegoodies.ArrayTextView;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class AboutInterface extends Activity {
+public class AboutActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about_interface);
+		setContentView(R.layout.about_activity);
 		
 		((ArrayTextView) findViewById(R.id.developer_label)).setText(getResources().getStringArray(R.array.developers));
 		

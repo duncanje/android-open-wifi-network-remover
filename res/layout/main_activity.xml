@@ -14,7 +14,8 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="@string/enabled_checkbox_label"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/settings_layout"
