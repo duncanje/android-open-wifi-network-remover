@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Open Wifi Network Remover'
+ * This file is part of 'Settings Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
@@ -19,35 +19,17 @@
  * MA 02110-1301, USA.
  */
 
-package com.dje.openwifinetworkremover;
+package com.dje.settingsgoodies;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.TextView;
+import android.app.backup.BackupAgentHelper;
+import android.app.backup.SharedPreferencesBackupHelper;
 
-public class ArrayTextView extends TextView {
+import com.dje.openwifinetworkremover.R;
 
-	public ArrayTextView(Context context) {
-		super(context);
-	}
-	
-	public ArrayTextView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public ArrayTextView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
-
-	public final void setText(String[] input) {
-		setText(input, "\n");
-	}
-	
-	public final void setText(String[] input, String separator) {
-		String out = "";
-		for (String child : input)
-			out = child+separator;
-		this.setText(out);
-	}
-
+public class SettingsBackupAgent extends BackupAgentHelper {
+    @Override
+    public void onCreate() {
+        SharedPreferencesBackupHelper helper = new SharedPreferencesBackupHelper(this, this.getString(R.string.settings_key));
+        addHelper(this.getString(R.string.settings_backup_key), helper);
+    }
 }

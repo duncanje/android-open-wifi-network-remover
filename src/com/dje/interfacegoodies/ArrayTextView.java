@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Open Wifi Network Remover'
+ * This file is part of 'Interface Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
@@ -19,27 +19,35 @@
  * MA 02110-1301, USA.
  */
 
-package com.dje.openwifinetworkremover;
+package com.dje.interfacegoodies;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.util.AttributeSet;
+import android.widget.TextView;
 
-public class UiGoodies {
-	
-	private Context context;
-	
-	public UiGoodies(Context context) {
-		this.context = context;
+public class ArrayTextView extends TextView {
+
+	public ArrayTextView(Context context) {
+		super(context);
 	}
 	
-	public void displayToastNotification(String message, int enabled) {
-		if (enabled != Settings.FALSE)
-			displayToastNotification(message);
+	public ArrayTextView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
+
+	public ArrayTextView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
+
+	public final void setText(String[] input) {
+		setText(input, "\n");
 	}
 	
-	public void displayToastNotification(String message) {
-		Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-		toast.show();
+	public final void setText(String[] input, String separator) {
+		String out = "";
+		for (String child : input)
+			out = child+separator;
+		this.setText(out);
 	}
-	
+
 }

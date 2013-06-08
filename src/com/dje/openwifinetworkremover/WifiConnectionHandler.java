@@ -36,10 +36,13 @@ import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 
+import com.dje.interfacegoodies.Goodies;
+import com.dje.settingsgoodies.Settings;
+
 public class WifiConnectionHandler extends BroadcastReceiver {
 
 	private Settings settings;
-	private UiGoodies uiGoodies;
+	private Goodies uiGoodies;
 	
 	private WifiManager wifiManager;
 	private SupplicantState status;
@@ -53,7 +56,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
 			lock.acquire();
 			
-			uiGoodies = new UiGoodies(context);
+			uiGoodies = new Goodies(context);
 			
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
 			int currentStoredOpenNetworkId = settings.get("currentOpenNetworkId");

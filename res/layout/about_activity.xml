@@ -3,7 +3,7 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutInterface" >
+    tools:context=".AboutActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:text="@string/developer_header_label"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <com.dje.openwifinetworkremover.ArrayTextView
+        <com.dje.interfacegoodies.ArrayTextView
             android:id="@+id/developer_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

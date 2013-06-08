@@ -1,5 +1,5 @@
 /*
- * This file is part of 'Open Wifi Network Remover'
+ * This file is part of 'Settings Goodies'
  * 
  * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
@@ -23,7 +23,7 @@
  * Provides simple helper methods to make storing settings easier
  */
 
-package com.dje.openwifinetworkremover;
+package com.dje.settingsgoodies;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,6 +33,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+
+import com.dje.openwifinetworkremover.R;
 
 public class Settings {
 	
