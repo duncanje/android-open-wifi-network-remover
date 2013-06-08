@@ -61,7 +61,7 @@ public final class R {
         public static final int settings_backup_key=0x7f040007;
         public static final int settings_key=0x7f040006;
         public static final int ssid_already_in_whitelist=0x7f04000b;
-        public static final int title_activity_about_interface=0x7f04000d;
+        public static final int title_activity_about_activity=0x7f04000d;
         public static final int version=0x7f040001;
         public static final int version_header_label=0x7f04000e;
         public static final int whitelist_heading=0x7f04000a;
