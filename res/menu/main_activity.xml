@@ -1,25 +1,26 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+	xmlns:owc="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_about"
         android:orderInCategory="100"
         android:icon="@drawable/ic_menu_about"
-        android:showAsAction="never"
+        owc:showAsAction="never"
         android:title="@string/menu_about"/>
     
     <item android:id="@+id/menu_add"
 		android:icon="@drawable/ic_menu_add"
 		android:title="@string/menu_add"
-		android:showAsAction="ifRoom|withText" />
+		owc:showAsAction="ifRoom|withText" />
 
     <item android:id="@+id/menu_remove"
 		android:icon="@drawable/ic_menu_remove"
 		android:title="@string/menu_remove"
-		android:showAsAction="ifRoom|withText"
+		owc:showAsAction="ifRoom|withText"
 		android:visible="false" />
     
     <item android:id="@+id/menu_clear_networks"
 		android:title="@string/menu_clear_whitelist"
-        android:showAsAction="never" />
+        owc:showAsAction="never" />
     
 </menu>

@@ -61,7 +61,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ListView
-                android:id="@android:id/list"
+                android:id="@+id/whitelist"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/whitelist_heading"

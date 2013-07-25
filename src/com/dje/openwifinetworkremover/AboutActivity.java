@@ -21,17 +21,14 @@
 
 package com.dje.openwifinetworkremover;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import com.dje.interfacegoodies.ArrayTextView;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class AboutActivity extends Activity {
+public class AboutActivity extends ActionBarActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +38,7 @@ public class AboutActivity extends Activity {
 		((ArrayTextView) findViewById(R.id.developer_label)).setText(getResources().getStringArray(R.array.developers));
 		
 		// Show the Up button in the action bar.
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

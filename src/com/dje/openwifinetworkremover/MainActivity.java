@@ -23,13 +23,11 @@ package com.dje.openwifinetworkremover;
 
 import java.util.ArrayList;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +44,7 @@ import android.widget.TextView;
 import com.dje.interfacegoodies.Goodies;
 import com.dje.settingsgoodies.Settings;
 
-public class MainActivity extends ListActivity implements OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements OnItemClickListener {
 	
 	private ArrayList<String> whitelistedSSIDS;
 	private ArrayAdapter<String> whitelistAdapter;
@@ -71,19 +69,18 @@ public class MainActivity extends ListActivity implements OnItemClickListener {
 		uiGoodies = new Goodies(this);
 		whitelistedSSIDS = new ArrayList<String>();
 		
-		whitelistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, whitelistedSSIDS);
-		setListAdapter(whitelistAdapter);
-		
 		settingsLayout = (View) findViewById(R.id.settings_layout);
 		whitelistLayout = (View) findViewById(R.id.whitelist_layout);
 		enabledCheckBox = (CheckBox) findViewById(R.id.enabled_checkbox);
 		notificationCheckBox = (CheckBox) findViewById(R.id.notification_checkbox);
-		whitelist = (ListView) findViewById(android.R.id.list);
+		whitelist = (ListView) findViewById(R.id.whitelist);
 		emptyWhitelistLabel = (TextView) findViewById(R.id.empty_whitelist_label);
 		
-		// Listen for clicks on whitelist items to allow the action bar items to be altered (Android 3.0+)
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
-			whitelist.setOnItemClickListener(this);
+		whitelistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, whitelistedSSIDS);
+		whitelist.setAdapter(whitelistAdapter);
+		
+		// Listen for clicks on whitelist items to allow the action bar items to be altered
+		whitelist.setOnItemClickListener(this);
 		
 		updateUI();
 	}
@@ -152,7 +149,7 @@ public class MainActivity extends ListActivity implements OnItemClickListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main_activity, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 	
 	// Called each time a menu is to be opened/has been invalidated
@@ -215,10 +212,8 @@ public class MainActivity extends ListActivity implements OnItemClickListener {
 	}
 
 	// Invalidate action bar to cause onPrepareOptionsMenu to be called
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void refreshActionBar() {
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
-			invalidateOptionsMenu();
+		supportInvalidateOptionsMenu();
 	}
 
 

@@ -5,7 +5,7 @@
     <string name="version">0.1.5-dev-1</string>
     <string name="menu_about">About</string>
     <string name="menu_add">Add SSID</string>
-    <string name="menu_remove">Remove selection</string>
+    <string name="menu_remove">Remove selected SSIDs</string>
     <string name="menu_clear_whitelist">Clear whitelist</string>
     <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
     <string name="settings_backup_key">settings</string>

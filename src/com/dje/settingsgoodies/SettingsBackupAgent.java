@@ -29,7 +29,7 @@ import com.dje.openwifinetworkremover.R;
 public class SettingsBackupAgent extends BackupAgentHelper {
     @Override
     public void onCreate() {
-        SharedPreferencesBackupHelper helper = new SharedPreferencesBackupHelper(this, this.getString(R.string.settings_key));
-        addHelper(this.getString(R.string.settings_backup_key), helper);
+        SharedPreferencesBackupHelper helper = new SharedPreferencesBackupHelper(this, getString(R.string.settings_key));
+        addHelper(getString(R.string.settings_backup_key), helper);
     }
 }
