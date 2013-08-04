@@ -89,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	// Performs updates to the UI after major events
 	public void updateUI() {
 		// Set enabled checkbox
-		if (settings.get("enabled") == Settings.FALSE) {
+		if (settings.getInt("enabled") == Settings.FALSE) {
 			enabledCheckBox.setChecked(false);
 			settingsLayout.setVisibility(View.INVISIBLE);
 		}
@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 		
 		// Set notifications checkbox
-		if (settings.get("notifications") == Settings.FALSE)
+		if (settings.getInt("notifications") == Settings.FALSE)
 			notificationCheckBox.setChecked(false);
 		else
 			notificationCheckBox.setChecked(true);

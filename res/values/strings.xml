@@ -2,13 +2,11 @@
 <resources>
 
     <string name="app_name">Open WiFi Cleaner</string>
-    <string name="version">0.1.5-dev-1</string>
+    <string name="version">0.1.5-dev-2</string>
     <string name="menu_about">About</string>
     <string name="menu_add">Add SSID</string>
     <string name="menu_remove">Remove selected SSIDs</string>
     <string name="menu_clear_whitelist">Clear whitelist</string>
-    <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
-    <string name="settings_backup_key">settings</string>
     <string name="enabled_checkbox_label">Enabled</string>
     <string name="notification_checkbox_label">Notify on connect/disconnect</string>
     <string name="whitelist_heading">Whitelist</string>
@@ -18,6 +16,9 @@
     <string name="version_header_label">Version</string>
     <string name="network_will_be_forgotten">Open network (will be forgotten)</string>
     <string name="network_forgotten">Open network forgotten</string>
+    
+    <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
+    <string name="settings_backup_key">settings</string>
     
     <string name="developer_header_label">Developers</string>
     <string name="about_blurb_label">Forgets open WiFi networks after disconnecting\n\nLicensed under the GNU GPL\nhttp://gnu.org/licenses/gpl\n\nhttps://github.com/duncanje/android-open-wifi-network-remover</string>

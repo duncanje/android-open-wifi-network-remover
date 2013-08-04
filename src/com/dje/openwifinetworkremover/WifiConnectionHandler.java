@@ -51,7 +51,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		settings = new Settings(context);
-		if (settings.get("enabled") != Settings.FALSE) {
+		if (settings.getInt("enabled") != Settings.FALSE) {
 			wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
 			lock.acquire();
@@ -59,25 +59,25 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			uiGoodies = new Goodies(context);
 			
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
-			int currentStoredOpenNetworkId = settings.get("currentOpenNetworkId");
+			int currentStoredOpenNetworkId = settings.getInt("currentOpenNetworkId");
 			
 			// Add the network id to settings if connection complete and network is open
 			if (status.equals(SupplicantState.COMPLETED) && detectAppropriateNetwork()) {
-				uiGoodies.displayToastNotification(context.getString(R.string.network_will_be_forgotten), settings.get("notifications"));
+				uiGoodies.displayToastNotification(context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
 				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
 			
 			// If connecting to any other network reset the stored network id in case it wasn't unset on disconnect
 			else if (status.equals(SupplicantState.COMPLETED)) {
-				settings.set("currentOpenNetworkId", Settings.NULL); // Reset stored network id
+				settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
 			}
 			
 			// Forgot network and remove id from settings on disconnection if we are connected to an open network
-			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != Settings.NULL) {
+			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != Settings.NULL_INT) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				wifiManager.saveConfiguration();
-				settings.set("currentOpenNetworkId", Settings.NULL); // Reset stored network id
-				uiGoodies.displayToastNotification(context.getString(R.string.network_forgotten), settings.get("notifications"));
+				settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
+				uiGoodies.displayToastNotification(context.getString(R.string.network_forgotten), settings.getInt("notifications"));
 			}
 			
 			lock.release();

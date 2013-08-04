@@ -24,8 +24,6 @@ package com.dje.settingsgoodies;
 import android.app.backup.BackupAgentHelper;
 import android.app.backup.SharedPreferencesBackupHelper;
 
-import com.dje.openwifinetworkremover.R;
-
 public class SettingsBackupAgent extends BackupAgentHelper {
     @Override
     public void onCreate() {
