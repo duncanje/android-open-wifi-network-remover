@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Open WiFi Cleaner</string>
-    <string name="version">0.1.5-dev-2</string>
+    <string name="version">0.1.5-dev-3</string>
     <string name="menu_about">About</string>
     <string name="menu_add">Add SSID</string>
     <string name="menu_remove">Remove selected SSIDs</string>
