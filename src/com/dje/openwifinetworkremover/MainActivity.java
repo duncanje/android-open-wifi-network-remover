@@ -164,17 +164,11 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		else
 			removeItem.setVisible(false);
 		
-		// Only display clear whitelist option when there are items in the whitelist 
-		if (whitelistedSSIDS.size() == 0)
+		// Only display clear whitelist option when there are items in the whitelist and app is enabled 
+		if (whitelistedSSIDS.size() == 0 || settings.getInt("enabled") != Settings.TRUE)
 			clearWhitelistItem.setVisible(false);
 		else
 			clearWhitelistItem.setVisible(true);
-		
-		// Disable clear whitelist option if app is disabled
-		if (settings.getInt("enabled") == Settings.TRUE)
-			clearWhitelistItem.setEnabled(true);
-		else
-			clearWhitelistItem.setEnabled(false);
 		
 		return super.onPrepareOptionsMenu(menu);
 	}
