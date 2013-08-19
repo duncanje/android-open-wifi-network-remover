@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		for (int i = 0; i < whitelist.getCount(); i++)
 			whitelist.setItemChecked(i, false);
 		
-		// Show/hide SSID remove button according to whitelist length
+		// Show/hide SSID list and info message
 		if (whitelistedSSIDS.size() == 0) {
 			whitelistLayout.setVisibility(View.INVISIBLE);
 			emptyWhitelistLabel.setVisibility(View.VISIBLE);
@@ -155,6 +155,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	// Called each time a menu is to be opened/has been invalidated
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem addItem = menu.findItem(R.id.menu_add);
 		MenuItem removeItem = menu.findItem(R.id.menu_remove);
 		MenuItem clearWhitelistItem = menu.findItem(R.id.menu_clear_networks);
 		
@@ -164,8 +165,14 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		else
 			removeItem.setVisible(false);
 		
+		// Remove the add button when app disabled
+		if (settings.getInt("enabled") == Settings.TRUE)
+			addItem.setVisible(true);
+		else
+			addItem.setVisible(false);
+		
 		// Only display clear whitelist option when there are items in the whitelist and app is enabled 
-		if (whitelistedSSIDS.size() == 0 || settings.getInt("enabled") != Settings.TRUE)
+		if (settings.getInt("whitelistLength") == 0 || settings.getInt("enabled") != Settings.TRUE)
 			clearWhitelistItem.setVisible(false);
 		else
 			clearWhitelistItem.setVisible(true);
