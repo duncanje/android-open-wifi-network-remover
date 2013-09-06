@@ -14,7 +14,7 @@
     <string name="empty_whitelist_message">All open networks will be forgotten!\n\nAdd SSIDs to keep specific networks</string>
     <string name="title_activity_about_activity">About</string>
     <string name="version_header_label">Version</string>
-    <string name="network_will_be_forgotten">Open network (will be forgotten)</string>
+    <string name="network_will_be_forgotten">Open network will be forgotten</string>
     <string name="network_forgotten">Open network forgotten</string>
     
     <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
