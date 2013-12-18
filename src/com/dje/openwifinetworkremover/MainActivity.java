@@ -166,13 +166,13 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			removeItem.setVisible(false);
 		
 		// Remove the add button when app disabled
-		if (settings.getInt("enabled") == Settings.TRUE)
-			addItem.setVisible(true);
-		else
+		if (settings.getInt("enabled") == Settings.FALSE)
 			addItem.setVisible(false);
+		else
+			addItem.setVisible(true);
 		
 		// Only display clear whitelist option when there are items in the whitelist and app is enabled 
-		if (settings.getInt("whitelistLength") == 0 || settings.getInt("enabled") != Settings.TRUE)
+		if (settings.getInt("whitelistLength") <= 0 || settings.getInt("enabled") != Settings.TRUE)
 			clearWhitelistItem.setVisible(false);
 		else
 			clearWhitelistItem.setVisible(true);
