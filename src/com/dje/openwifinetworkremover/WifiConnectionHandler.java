@@ -48,9 +48,14 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	private SupplicantState status;
 	private WifiLock lock;
 	
+	private Debug debug;
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		settings = new Settings(context);
+		debug = new Debug(context);
+		debug.write("All settings: " + settings.getAllReadable());
+		
 		if (settings.getInt("enabled") != Settings.FALSE) {
 			wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
@@ -60,37 +65,47 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			status = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
 			int currentStoredOpenNetworkId = settings.getInt("currentOpenNetworkId");
+			debug.write("Status: " + status);
+			debug.write("currentStoredNetworkId: " + currentStoredOpenNetworkId);
 			
 			// Add the network id to settings if connection complete and network is open
 			if (status.equals(SupplicantState.COMPLETED) && detectAppropriateNetwork()) {
 				uiGoodies.displayToastNotification(context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
-				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
+				int currentOpenNetworkId = wifiManager.getConnectionInfo().getNetworkId();
+				settings.set("currentOpenNetworkId", currentOpenNetworkId);
+				debug.write("Connected to open network, id stored: " + currentOpenNetworkId);
 			}
 			
 			// If connecting to any other network reset the stored network id in case it wasn't unset on disconnect
 			else if (status.equals(SupplicantState.COMPLETED)) {
 				settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
+				debug.write("Clear stored network id");
 			}
 			
 			// Forgot network and remove id from settings on disconnection if we are connected to an open network
 			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != Settings.NULL_INT) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
-				wifiManager.saveConfiguration();
+				debug.write("Network removed: " + currentStoredOpenNetworkId);
+				debug.write("Config saved: " + wifiManager.saveConfiguration());
 				settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
+				debug.write("Clear stored network id");
 				uiGoodies.displayToastNotification(context.getString(R.string.network_forgotten), settings.getInt("notifications"));
 			}
 			
 			lock.release();
+			debug.close();
 		}
 	}
 	
 	// Determines the security capabilities of a network
 	private boolean detectAppropriateNetwork() {
+		debug.write("# Detecting appropriate network #");
 		List<ScanResult> scan = wifiManager.getScanResults();
 		ArrayList<String> whitelist = settings.getList("whitelist");
-		String currentSSID;
+		String currentSSID = wifiManager.getConnectionInfo().getSSID();
+		debug.write("Current SSID: " + currentSSID);
+		debug.write("Network scan: " + scan.toString());
 		for (ScanResult network : scan) {
-			currentSSID = wifiManager.getConnectionInfo().getSSID();
 			if (currentSSID != null
 					&& currentSSID.equals("\""+network.SSID+"\"") // Ensure we only detect the network we are connected to
 					&& ! whitelist.contains(network.SSID)
