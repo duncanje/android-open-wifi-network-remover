@@ -67,13 +67,8 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
 			}
 			
-			// If connecting to any other network reset the stored network id in case it wasn't unset on disconnect
-			else if (status.equals(SupplicantState.COMPLETED)) {
-				settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
-			}
-			
-			// Forgot network and remove id from settings on disconnection if we are connected to an open network
-			else if (status.equals(SupplicantState.DISCONNECTED) && currentStoredOpenNetworkId != Settings.NULL_INT) {
+			// Otherwise, if an open network id is stored then forget the network and clear stored id
+			else if (currentStoredOpenNetworkId != Settings.NULL_INT) {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				wifiManager.saveConfiguration();
 				settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
