@@ -83,16 +83,16 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	private boolean detectAppropriateNetwork() {
 		List<ScanResult> scan = wifiManager.getScanResults();
 		ArrayList<String> whitelist = settings.getList("whitelist");
-		String currentSSID;
-		for (ScanResult network : scan) {
-			currentSSID = wifiManager.getConnectionInfo().getSSID();
-			if (currentSSID != null
-					&& currentSSID.equals("\""+network.SSID+"\"") // Ensure we only detect the network we are connected to
-					&& ! whitelist.contains(network.SSID)
-					&& ! network.capabilities.contains("WPA")
-					&& ! network.capabilities.contains("WEP")
-					&& ! network.capabilities.contains("EAP"))
-				return true;
+		String currentSSID = wifiManager.getConnectionInfo().getSSID();
+		if (currentSSID != null) {
+			for (ScanResult network : scan) {
+				if (currentSSID.equals("\""+network.SSID+"\"") // Ensure we only detect the network we are connected to
+						&& ! whitelist.contains(network.SSID)
+						&& ! network.capabilities.contains("WPA")
+						&& ! network.capabilities.contains("WEP")
+						&& ! network.capabilities.contains("EAP"))
+					return true;
+			}
 		}
 		return false;
 	}
