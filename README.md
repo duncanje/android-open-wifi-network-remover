@@ -6,7 +6,6 @@ Available on the [Play store](https://play.google.com/store/apps/details?id=com.
 
 ## Build From Source ##
 * Import into Eclipse
-* Setup [Android Support Library](http://developer.android.com/tools/support-library/setup.html) v7 appcompat
 
 ## License ##
 GNU GPL
