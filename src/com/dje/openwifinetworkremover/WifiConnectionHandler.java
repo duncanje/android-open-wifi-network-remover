@@ -1,7 +1,7 @@
 /*
  * This file is part of 'Open Wifi Network Remover'
  * 
- * Copyright 2013 Duncan Eastoe <duncaneastoe@gmail.com>
+ * Copyright 2013-14 Duncan Eastoe <duncaneastoe@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 
@@ -45,6 +46,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	private Goodies uiGoodies;
 	
 	private WifiManager wifiManager;
+	private WifiInfo wifiInfo;
 	private WifiLock lock;
 	
 	@Override
@@ -61,10 +63,14 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			int radioStatus = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, Settings.NULL_INT);
 			int currentStoredOpenNetworkId = settings.getInt("currentOpenNetworkId");
 			
+			wifiInfo = wifiManager.getConnectionInfo();
+			
 			// Add the network id to settings if connection complete and network is open
 			if (SupplicantState.COMPLETED.equals(connectionStatus) && detectAppropriateNetwork()) {
-				uiGoodies.displayToastNotification(context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
-				settings.set("currentOpenNetworkId", wifiManager.getConnectionInfo().getNetworkId());
+				String currentOpenNetworkSsid = wifiInfo.getSSID().substring(1, wifiInfo.getSSID().length()-1);
+				uiGoodies.displayToastNotification(currentOpenNetworkSsid + " " + context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
+				settings.set("currentOpenNetworkId", wifiInfo.getNetworkId());
+				settings.set("currentOpenNetworkSsid", currentOpenNetworkSsid);
 			}
 			
 			/* Otherwise, forget and clear the network if an open network id is stored
@@ -78,7 +84,10 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				
 				if (wifiManager.saveConfiguration()) {
 					settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
-					uiGoodies.displayToastNotification(context.getString(R.string.network_forgotten), settings.getInt("notifications"));
+					uiGoodies.displayToastNotification(settings.getString("currentOpenNetworkSsid")
+							+ " " + context.getString(R.string.network_forgotten),
+							settings.getInt("notifications"));
+					settings.set("currentOpenNetworkSsid", Settings.NULL_STR);
 				}
 			}
 			
@@ -90,10 +99,10 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 	private boolean detectAppropriateNetwork() {
 		List<ScanResult> scan = wifiManager.getScanResults();
 		ArrayList<String> whitelist = settings.getList("whitelist");
-		String currentSSID = wifiManager.getConnectionInfo().getSSID();
-		if (currentSSID != null) {
+		String currentBSSID = wifiInfo.getBSSID();
+		if (currentBSSID != null) {
 			for (ScanResult network : scan) {
-				if (currentSSID.equals("\""+network.SSID+"\"") // Ensure we only detect the network we are connected to
+				if (currentBSSID.equals(network.BSSID) // Ensure we only detect the network we are connected to
 						&& ! whitelist.contains(network.SSID)
 						&& ! network.capabilities.contains("WPA")
 						&& ! network.capabilities.contains("WEP")
