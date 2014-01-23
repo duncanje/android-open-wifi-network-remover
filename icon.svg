@@ -10,12 +10,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="80.78125"
-   height="80.9375"
+   width="100"
+   height="100"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="icon.svg">
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="/home/dj/Desktop/test.png"
+   inkscape:export-xdpi="569.31531"
+   inkscape:export-ydpi="569.31531">
   <defs
      id="defs4">
     <linearGradient
@@ -74,7 +77,8 @@
        y1="127.36218"
        x2="60"
        y2="227.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(10,-9.9999856)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4120"
@@ -83,7 +87,8 @@
        y1="127.36218"
        x2="60"
        y2="227.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(10,-9.9999856)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4114"
@@ -92,7 +97,8 @@
        y1="127.36218"
        x2="60"
        y2="227.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(10,-9.9999856)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4108"
@@ -101,7 +107,8 @@
        y1="127.36218"
        x2="60"
        y2="227.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(10,-9.9999856)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -112,16 +119,16 @@
      inkscape:pageshadow="2"
      inkscape:zoom="4"
      inkscape:cx="32.086481"
-     inkscape:cy="38.26276"
+     inkscape:cy="45.76276"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-grids="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1280"
-     inkscape:window-height="997"
+     inkscape:window-width="1366"
+     inkscape:window-height="694"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -147,7 +154,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -155,14 +162,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-24.6875,-121.90625)">
+     transform="translate(-24.6875,-102.84375)">
     <rect
        style="fill:url(#linearGradient4100);fill-opacity:1;stroke:#000000;stroke-width:0.62360954;stroke-opacity:1"
        id="rect4020"
        width="20"
        height="35"
-       x="25"
-       y="167.36218"
+       x="35"
+       y="157.36218"
        inkscape:export-xdpi="106.96"
        inkscape:export-ydpi="106.96"
        inkscape:export-filename="/home/dj/Personal/Programming/Android/OpenWifiNetworkRemover/res/drawable-xhdpi/ic_launcher.png" />
@@ -171,8 +178,8 @@
        id="rect4020-8"
        width="20"
        height="50"
-       x="45"
-       y="152.36218"
+       x="55"
+       y="142.36218"
        inkscape:export-filename="/home/dj/Personal/Programming/Android/OpenWifiNetworkRemover/res/drawable-xhdpi/ic_launcher.png"
        inkscape:export-xdpi="106.96"
        inkscape:export-ydpi="106.96" />
@@ -181,8 +188,8 @@
        id="rect4020-7"
        width="20"
        height="65"
-       x="65"
-       y="137.36218"
+       x="75"
+       y="127.36219"
        inkscape:export-filename="/home/dj/Personal/Programming/Android/OpenWifiNetworkRemover/res/drawable-xhdpi/ic_launcher.png"
        inkscape:export-xdpi="106.96"
        inkscape:export-ydpi="106.96" />
@@ -191,8 +198,8 @@
        id="rect4020-0"
        width="20"
        height="80"
-       x="85"
-       y="122.36218"
+       x="95"
+       y="112.3622"
        inkscape:export-xdpi="106.96"
        inkscape:export-ydpi="106.96"
        inkscape:export-filename="/home/dj/Personal/Programming/Android/OpenWifiNetworkRemover/res/drawable-xhdpi/ic_launcher.png" />
