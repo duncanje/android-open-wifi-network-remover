@@ -37,13 +37,13 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 
-import com.dje.interfacegoodies.Goodies;
-import com.dje.settingsgoodies.Settings;
+import com.dje.goodies.settings.Settings;
+import com.dje.goodies.ui.Util;
 
 public class WifiConnectionHandler extends BroadcastReceiver {
 
 	private Settings settings;
-	private Goodies uiGoodies;
+	private Util toastUtil;
 	
 	private WifiManager wifiManager;
 	private WifiInfo wifiInfo;
@@ -57,7 +57,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			lock = wifiManager.createWifiLock("Disconnect lock to allow removing network from list");
 			lock.acquire();
 			
-			uiGoodies = new Goodies(context);
+			toastUtil = new Util(context);
 			
 			SupplicantState connectionStatus = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
 			int radioStatus = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, Settings.NULL_INT);
@@ -68,7 +68,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			// Add the network id to settings if connection complete and network is open
 			if (SupplicantState.COMPLETED.equals(connectionStatus) && detectAppropriateNetwork()) {
 				String currentOpenNetworkSsid = wifiInfo.getSSID().substring(1, wifiInfo.getSSID().length()-1);
-				uiGoodies.displayToastNotification(currentOpenNetworkSsid + " " + context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
+				toastUtil.displayToastNotification(currentOpenNetworkSsid + " " + context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
 				settings.set("currentOpenNetworkId", wifiInfo.getNetworkId());
 				settings.set("currentOpenNetworkSsid", currentOpenNetworkSsid);
 			}
@@ -84,7 +84,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				
 				if (wifiManager.saveConfiguration()) {
 					settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
-					uiGoodies.displayToastNotification(settings.getString("currentOpenNetworkSsid")
+					toastUtil.displayToastNotification(settings.getString("currentOpenNetworkSsid")
 							+ " " + context.getString(R.string.network_forgotten),
 							settings.getInt("notifications"));
 					settings.set("currentOpenNetworkSsid", Settings.NULL_STR);

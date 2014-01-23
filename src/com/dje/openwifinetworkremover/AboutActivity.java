@@ -26,7 +26,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-import com.dje.interfacegoodies.ArrayTextView;
+import com.dje.goodies.ui.ArrayTextView;
 
 public class AboutActivity extends ActionBarActivity {
 	

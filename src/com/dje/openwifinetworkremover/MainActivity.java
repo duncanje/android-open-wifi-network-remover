@@ -41,8 +41,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.dje.interfacegoodies.Goodies;
-import com.dje.settingsgoodies.Settings;
+import com.dje.goodies.settings.Settings;
+import com.dje.goodies.ui.Util;
 
 public class MainActivity extends ActionBarActivity implements OnItemClickListener {
 	
@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	private ArrayAdapter<String> whitelistAdapter;
 	
 	private Settings settings;
-	private Goodies uiGoodies;
+	private Util uiGoodies;
 	
 	// Interface components
 	private View settingsLayout;
@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		setContentView(R.layout.main_activity);
 		
 		settings = new Settings(this);
-		uiGoodies = new Goodies(this);
+		uiGoodies = new Util(this);
 		whitelistedSSIDS = new ArrayList<String>();
 		
 		settingsLayout = (View) findViewById(R.id.settings_layout);
@@ -240,7 +240,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 				String ssidInput = edit.getText().toString();
 				if (ssidInput.length() > 0) {
 					if (whitelistedSSIDS.contains(ssidInput)) {
-						uiGoodies.displayToastNotification(ssidInput+" "+alreadyInWhitelistMessage);
+						uiGoodies.displayToastNotification(ssidInput + " " + alreadyInWhitelistMessage);
 					}
 					else {
 						whitelistedSSIDS.add(edit.getText().toString());

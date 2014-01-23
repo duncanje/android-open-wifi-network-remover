@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Settings Goodies</string>
-    <string name="settings_key"><!-- KEY HERE --></string>
-    <string name="settings_backup_key"><!-- KEY HERE --></string>
-</resources>
