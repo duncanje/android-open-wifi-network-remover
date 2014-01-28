@@ -83,10 +83,18 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				
 				if (wifiManager.saveConfiguration()) {
-					settings.set("currentOpenNetworkId", Settings.NULL_INT); // Reset stored network id
-					toastUtil.displayToastNotification(settings.getString("currentOpenNetworkSsid")
-							+ " " + context.getString(R.string.network_forgotten),
+					String networkIdentifier;
+					if (settings.getString("currentOpenNetworkSsid").equals(Settings.NULL_STR))
+						networkIdentifier = context.getString(R.string.unknown_network_identifer);
+					else
+						networkIdentifier = settings.getString("currentOpenNetworkSsid");
+					
+					toastUtil.displayToastNotification(networkIdentifier + " "
+							+ context.getString(R.string.network_forgotten),
 							settings.getInt("notifications"));
+					
+					// Reset stored network details
+					settings.set("currentOpenNetworkId", Settings.NULL_INT);
 					settings.set("currentOpenNetworkSsid", Settings.NULL_STR);
 				}
 			}

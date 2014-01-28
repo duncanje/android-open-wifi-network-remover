@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Open WiFi Cleaner</string>
-    <string name="version">0.1.6-dev-2</string>
+    <string name="version">0.1.6</string>
     <string name="menu_about">About</string>
     <string name="menu_add">Add SSID</string>
     <string name="menu_remove">Remove selected SSIDs</string>
@@ -16,6 +16,7 @@
     <string name="version_header_label">Version</string>
     <string name="network_will_be_forgotten">will be forgotten</string>
     <string name="network_forgotten">forgotten</string>
+    <string name="unknown_network_identifer">Open network</string>
     
     <string name="settings_key">com.dje.openwifinetworkremover.settings</string>
     <string name="settings_backup_key">settings</string>
