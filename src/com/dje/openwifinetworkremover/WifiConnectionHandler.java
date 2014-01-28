@@ -67,7 +67,14 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			// Add the network id to settings if connection complete and network is open
 			if (SupplicantState.COMPLETED.equals(connectionStatus) && detectAppropriateNetwork()) {
-				String currentOpenNetworkSsid = wifiInfo.getSSID().substring(1, wifiInfo.getSSID().length()-1);
+				String currentOpenNetworkSsid = wifiInfo.getSSID();
+				// If not surrounded by " then SSID not human readable
+				if (currentOpenNetworkSsid.charAt(0) == '"'
+						&& currentOpenNetworkSsid.charAt(currentOpenNetworkSsid.length()-1) == '"')
+					currentOpenNetworkSsid = currentOpenNetworkSsid.substring(1, currentOpenNetworkSsid.length()-1);
+				else
+					currentOpenNetworkSsid = Settings.NULL_STR;
+				
 				toastUtil.displayToastNotification(currentOpenNetworkSsid + " " + context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
 				settings.set("currentOpenNetworkId", wifiInfo.getNetworkId());
 				settings.set("currentOpenNetworkSsid", currentOpenNetworkSsid);
