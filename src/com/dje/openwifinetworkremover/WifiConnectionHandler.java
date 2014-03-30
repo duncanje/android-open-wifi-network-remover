@@ -115,7 +115,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 		List<ScanResult> scan = wifiManager.getScanResults();
 		ArrayList<String> whitelist = settings.getList("whitelist");
 		String currentBSSID = wifiInfo.getBSSID();
-		if (currentBSSID != null) {
+		if (scan != null && currentBSSID != null) {
 			for (ScanResult network : scan) {
 				if (currentBSSID.equals(network.BSSID) // Ensure we only detect the network we are connected to
 						&& ! whitelist.contains(network.SSID)

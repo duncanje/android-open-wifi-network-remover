@@ -1,3 +1,6 @@
+####0.1.6.1
+- Crash fix
+
 ####0.1.6
 - If connected to an open network and the WiFi radio is switched off then the network will now be removed when the radio is turned back on
 - Display network SSID in notifications
