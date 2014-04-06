@@ -1,3 +1,6 @@
+####0.1.6.2
+- Prevent blank SSID in notifications
+
 ####0.1.6.1
 - Crash fix
 
