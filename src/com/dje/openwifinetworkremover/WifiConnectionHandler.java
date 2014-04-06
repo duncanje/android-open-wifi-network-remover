@@ -59,7 +59,8 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			
 			toastUtil = new Util(context);
 			
-			SupplicantState connectionStatus = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE); // Get status of wifi connection
+			// Get status of wifi connection
+			SupplicantState connectionStatus = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
 			int radioStatus = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, Settings.NULL_INT);
 			int currentStoredOpenNetworkId = settings.getInt("currentOpenNetworkId");
 			
@@ -69,13 +70,17 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 			if (SupplicantState.COMPLETED.equals(connectionStatus) && detectAppropriateNetwork()) {
 				String currentOpenNetworkSsid = wifiInfo.getSSID();
 				// If not surrounded by " then SSID not human readable
-				if (currentOpenNetworkSsid.charAt(0) == '"'
-						&& currentOpenNetworkSsid.charAt(currentOpenNetworkSsid.length()-1) == '"')
+				if (currentOpenNetworkSsid != null &&
+					currentOpenNetworkSsid.length() > 2 &&
+					currentOpenNetworkSsid.charAt(0) == '"' &&
+					currentOpenNetworkSsid.charAt(currentOpenNetworkSsid.length()-1) == '"')
+					
 					currentOpenNetworkSsid = currentOpenNetworkSsid.substring(1, currentOpenNetworkSsid.length()-1);
 				else
-					currentOpenNetworkSsid = Settings.NULL_STR;
+					currentOpenNetworkSsid = context.getString(R.string.unknown_network_identifer);
 				
-				toastUtil.displayToastNotification(currentOpenNetworkSsid + " " + context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
+				toastUtil.displayToastNotification(currentOpenNetworkSsid + " " +
+					context.getString(R.string.network_will_be_forgotten), settings.getInt("notifications"));
 				settings.set("currentOpenNetworkId", wifiInfo.getNetworkId());
 				settings.set("currentOpenNetworkSsid", currentOpenNetworkSsid);
 			}
@@ -90,11 +95,7 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				wifiManager.removeNetwork(currentStoredOpenNetworkId);
 				
 				if (wifiManager.saveConfiguration()) {
-					String networkIdentifier;
-					if (settings.getString("currentOpenNetworkSsid").equals(Settings.NULL_STR))
-						networkIdentifier = context.getString(R.string.unknown_network_identifer);
-					else
-						networkIdentifier = settings.getString("currentOpenNetworkSsid");
+					String networkIdentifier = settings.getString("currentOpenNetworkSsid");
 					
 					toastUtil.displayToastNotification(networkIdentifier + " "
 							+ context.getString(R.string.network_forgotten),
