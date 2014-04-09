@@ -1,3 +1,6 @@
+####0.1.6.3
+- Prevent phantom notification
+
 ####0.1.6.2
 - Prevent blank SSID in notifications
 
