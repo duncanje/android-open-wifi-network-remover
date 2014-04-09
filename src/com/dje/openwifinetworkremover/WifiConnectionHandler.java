@@ -97,7 +97,8 @@ public class WifiConnectionHandler extends BroadcastReceiver {
 				if (wifiManager.saveConfiguration()) {
 					String networkIdentifier = settings.getString("currentOpenNetworkSsid");
 					
-					toastUtil.displayToastNotification(networkIdentifier + " "
+					if (! networkIdentifier.equals(Settings.NULL_STR))
+						toastUtil.displayToastNotification(networkIdentifier + " "
 							+ context.getString(R.string.network_forgotten),
 							settings.getInt("notifications"));
 					
