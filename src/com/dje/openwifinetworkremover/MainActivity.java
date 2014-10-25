@@ -172,7 +172,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			addItem.setVisible(true);
 		
 		// Only display clear whitelist option when there are items in the whitelist and app is enabled 
-		if (settings.getInt("whitelistLength") <= 0 || settings.getInt("enabled") != Settings.TRUE)
+		if (settings.getInt("whitelistLength") <= 0 || settings.getInt("enabled") == Settings.FALSE)
 			clearWhitelistItem.setVisible(false);
 		else
 			clearWhitelistItem.setVisible(true);

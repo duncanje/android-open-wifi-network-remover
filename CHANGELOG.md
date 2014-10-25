@@ -1,3 +1,6 @@
+####0.1.6.4
+- Fix issue where the clear whitelist option didn't always appear
+
 ####0.1.6.3
 - Prevent phantom notification
 
