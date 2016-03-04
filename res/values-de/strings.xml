@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_blurb_label">Vergisst offene Wifi-Netzwerke nach dem Trennen der Verbindung\n\ Lizenziert unter der GNU GPLnhttp://gnu.org/licenses/gpl\n\nhttps://github.com/duncanje/android-open-wifi-network-remover</string>
+    <string name="developer_header_label">Entwickler</string>
+    <string name="empty_whitelist_message">Alle offenen Netzwerke werden vergessen!\n\nFügen Sie dei SSID hinzu, um ausgewählte Netzwerke zu behalten</string>
+    <string name="enabled_checkbox_label">Aktiviert</string>
+    <string name="menu_about">Über</string>
+    <string name="menu_add">SSID hinzufügen</string>
+    <string name="menu_clear_whitelist">Weiße Liste löschen</string>
+    <string name="menu_remove">Ausgewählte SSIDs entfernen</string>
+    <string name="network_forgotten">Vergessen</string>
+    <string name="network_will_be_forgotten">werden vergessen</string>
+    <string name="notification_checkbox_label">Bei herstellen/trennen der Verbindung informieren</string>
+    <string name="settings_backup_key">Einstellungen</string>
+    <string name="ssid_already_in_whitelist">Bereits in der weißen Liste</string>
+    <string name="title_activity_about_activity">Über</string>
+    <string name="unknown_network_identifer">Offenes Netzwerk</string>
+    <string name="whitelist_heading">Weiße Liste</string>
+</resources>
