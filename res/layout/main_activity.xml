@@ -42,7 +42,7 @@
             android:text="@string/empty_whitelist_message"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="#646464" />
 
         <RelativeLayout
             android:id="@+id/whitelist_layout"
